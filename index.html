@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0B1F3A">
+<title>AAA Commercial Sales Intake</title>
+<style>
+:root {
+  /* AAA Document Standard — the house palette. The gate outside is DanDDee. */
+  --navy: #0B1F3A; --navy-d: #08182E; --gold: #C8A951;
+  --red: #CC0000; --green: #10B981; --amber: #B4770B;
+  /* light is the neutral default */
+  --bg: #F4F6F9; --bg2: #FFFFFF; --card: #FFFFFF; --brd: #D3D9E2;
+  --t1: #12181F; --t2: #45525F; --t3: #6C7A8A;
+  --cv-bg: #FFFFFF; --cv-grid: #E4E8EF; --cv-wall: #0B1F3A;
+}
+html[data-theme="dark"] {
+  --bg: #0F1826; --bg2: #1A2438; --card: #232E45; --brd: #33405C;
+  --t1: #F1F5F9; --t2: #B8C2D9; --t3: #7A88A6; --amber: #F59E0B;
+  --cv-bg: #0F1826; --cv-grid: #1A2438; --cv-wall: #F1F5F9;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  margin: 0; padding: 0; min-height: 100%;
+  font-family: 'Arial', -apple-system, sans-serif;
+  background: var(--bg); color: var(--t1);
+  -webkit-text-size-adjust: 100%; overscroll-behavior: none;
+}
+button, input, select, textarea { font-family: inherit; }
+button { cursor: pointer; }
+
+/* ============ GATE ============ */
+.gate { position: fixed; inset: 0; z-index: 9000; background: var(--bg);
+  display: flex; align-items: center; justify-content: center; padding: 20px; }
+.gate.off { display: none; }
+.gate-box { background: var(--bg2); border: 2px solid var(--gold);
+  border-radius: 12px; padding: 32px 24px; max-width: 380px; width: 100%; text-align: center; }
+.gate-brand { color: var(--gold); font-size: 11px; letter-spacing: 4px; font-weight: 700; margin-bottom: 8px; }
+.gate-h1 { font-size: 26px; font-weight: 900; margin: 0 0 4px; }
+.gate-sub { color: var(--t3); font-size: 12px; margin-bottom: 20px; }
+.gate-box input { width: 100%; padding: 14px; background: var(--card);
+  border: 1px solid var(--brd); color: var(--t1); font-size: 16px;
+  border-radius: 6px; margin-bottom: 12px; letter-spacing: 2px;
+  font-family: 'Courier New', monospace; text-align: center; }
+.gate-box input:focus { outline: none; border-color: var(--gold); }
+.gate-box button { width: 100%; padding: 14px; background: var(--gold);
+  color: var(--navy); border: none; border-radius: 6px; font-weight: 900;
+  font-size: 13px; letter-spacing: 3px; }
+.gate-err { color: var(--red); font-size: 12px; min-height: 18px; margin-top: 8px; font-weight: 700; }
+
+/* ============ APP ============ */
+.app { display: none; flex-direction: column; min-height: 100vh; }
+.app.on { display: flex; }
+
+/* Top bar */
+.tb { background: var(--navy-d); border-bottom: 2px solid var(--gold);
+  padding: 10px 12px; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; }
+.tb-brand { color: var(--gold); font-size: 10px; letter-spacing: 3px; font-weight: 700; flex: 1; line-height: 1.2; }
+.tb-brand small { display: block; color: var(--t3); font-size: 8px; letter-spacing: 1px; margin-top: 2px; }
+.tb-btn { background: var(--card); color: var(--t1); border: 1px solid var(--brd);
+  padding: 7px 12px; border-radius: 5px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; }
+.tb-btn:active { background: var(--navy); }
+.tb-btn.gold { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+/* Wizard progress */
+.wiz { display: flex; padding: 8px 12px; gap: 4px; background: var(--bg2); border-bottom: 1px solid var(--brd); }
+.wiz-step { flex: 1; text-align: center; padding: 6px 2px; background: var(--card);
+  border: 1px solid var(--brd); border-radius: 4px; font-size: 9px; font-weight: 700;
+  letter-spacing: 1px; color: var(--t3); }
+.wiz-step.on { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.wiz-step.done { background: var(--card); color: var(--gold); border-color: var(--gold); }
+
+/* Content */
+.content { flex: 1; padding: 16px 14px 100px; max-width: 720px; margin: 0 auto; width: 100%; }
+.step { display: none; }
+.step.on { display: block; }
+.step h2 { color: var(--gold); font-size: 12px; letter-spacing: 3px;
+  margin: 0 0 4px; font-weight: 700; }
+.step h1 { font-size: 22px; margin: 0 0 16px; font-weight: 900; }
+.step p.help { color: var(--t2); font-size: 12px; margin: 0 0 20px; line-height: 1.5; }
+
+/* Forms */
+.fld { margin-bottom: 14px; }
+.fld label { display: block; font-size: 11px; color: var(--t2);
+  letter-spacing: 1.5px; font-weight: 700; margin-bottom: 4px; text-transform: uppercase; }
+.fld label .req { color: var(--red); margin-left: 3px; }
+.fld input, .fld select, .fld textarea { width: 100%; padding: 10px 12px;
+  background: var(--card); color: var(--t1); border: 1px solid var(--brd);
+  border-radius: 5px; font-size: 14px; }
+.fld input:focus, .fld select:focus, .fld textarea:focus { outline: none; border-color: var(--gold); }
+.fld textarea { min-height: 70px; resize: vertical; font-family: inherit; }
+.fld small { display: block; color: var(--t3); font-size: 10px; margin-top: 3px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+@media (max-width: 500px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+/* Chip buttons (radio-like) */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: var(--card); border: 1px solid var(--brd); color: var(--t1);
+  padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.chip.on { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+/* Section card */
+.sec { background: var(--bg2); border: 1px solid var(--brd);
+  border-radius: 8px; padding: 14px; margin-bottom: 14px; }
+.sec-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.sec-hdr .badge { background: var(--gold); color: var(--navy);
+  font-size: 10px; font-weight: 900; padding: 3px 8px; border-radius: 3px; letter-spacing: 1px; }
+.sec-hdr h3 { margin: 0; font-size: 15px; }
+
+/* Type picker cards */
+.type-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media (max-width: 480px) { .type-list { grid-template-columns: 1fr; } }
+.type-card { background: var(--card); border: 2px solid var(--brd); border-radius: 8px;
+  padding: 14px 12px; cursor: pointer; position: relative; transition: all 0.15s; }
+.type-card.on { border-color: var(--gold); background: rgba(201, 166, 72, 0.1); }
+.type-card .t-icon { font-size: 24px; margin-bottom: 6px; }
+.type-card .t-name { font-size: 13px; font-weight: 700; }
+.type-card .t-sub { font-size: 10px; color: var(--t3); margin-top: 2px; }
+.type-card .t-check { position: absolute; top: 8px; right: 8px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--card); border: 2px solid var(--brd); display: flex;
+  align-items: center; justify-content: center; font-size: 12px; color: var(--gold); font-weight: 900; }
+.type-card.on .t-check { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+
+/* Sticky footer nav */
+.nav { position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--navy-d); border-top: 2px solid var(--gold);
+  padding: 10px 12px; display: flex; gap: 8px; z-index: 90; }
+.nav button { flex: 1; padding: 12px; border-radius: 5px; font-weight: 700;
+  font-size: 12px; letter-spacing: 1.5px; border: 1px solid var(--brd);
+  background: var(--card); color: var(--t1); }
+.nav button.primary { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.nav button:disabled { opacity: 0.4; }
+
+/* Review page */
+.review-sec { background: var(--bg2); border: 1px solid var(--brd);
+  border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+.review-sec h4 { color: var(--gold); font-size: 11px; letter-spacing: 2px;
+  margin: 0 0 8px; font-weight: 700; }
+.review-row { display: flex; padding: 4px 0; border-bottom: 1px dashed var(--brd);
+  font-size: 12px; }
+.review-row:last-child { border-bottom: none; }
+.review-row b { flex: 0 0 40%; color: var(--t2); font-weight: 700; padding-right: 8px; }
+.review-row span { flex: 1; color: var(--t1); }
+
+/* Layout Studio embed */
+.layout-host { position: relative; height: 60vh; background: var(--bg);
+  border: 1px solid var(--brd); border-radius: 6px; overflow: hidden; touch-action: none; }
+.layout-host canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.layout-tools { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px;
+  padding: 8px 0; }
+.layout-tool { background: var(--card); color: var(--t2); border: 1px solid var(--brd);
+  border-radius: 5px; padding: 7px 1px; font-size: 8px; font-weight: 700;
+  letter-spacing: 0.5px; text-align: center; }
+.layout-tool.on { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.layout-tool .lt-ic { display: block; font-size: 15px; margin-bottom: 2px; }
+
+/* Selection chip (appears when an item is selected in Select mode) */
+.sel-chip { position: absolute; top: 8px; right: 8px;
+  background: rgba(15, 24, 38, 0.95); border: 1px solid var(--gold);
+  border-radius: 6px; padding: 6px 10px;
+  color: var(--gold); font-weight: 700; letter-spacing: 0.5px;
+  display: none; z-index: 10; max-width: 250px; }
+.sel-chip.on { display: block; }
+.sel-row1 { display: flex; align-items: center; gap: 8px;
+  font-size: 10px; letter-spacing: 1px; }
+.sel-row1 span { flex: 1; }
+.sel-chip button { background: var(--red); color: white; border: none;
+  padding: 4px 9px; border-radius: 3px; font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; cursor: pointer; }
+.sel-row2 { display: flex; gap: 10px; margin-top: 6px; padding-top: 5px;
+  border-top: 1px solid rgba(201, 166, 72, 0.3); }
+.sel-row2 label { display: flex; align-items: center; gap: 4px;
+  font-size: 10px; color: var(--gold); font-weight: 700; letter-spacing: 0.5px; }
+.sel-row2 input { background: rgba(0,0,0,0.4); border: 1px solid var(--brd);
+  color: var(--t1); padding: 3px 5px; width: 55px; border-radius: 3px;
+  font-size: 12px; text-align: right; font-family: 'Courier New', monospace; }
+.sel-row2 input:focus { outline: none; border-color: var(--gold); }
+.sel-hint { position: absolute; top: 8px; left: 8px;
+  background: rgba(15, 24, 38, 0.9); border: 1px solid var(--brd);
+  border-radius: 5px; padding: 5px 9px; font-size: 9px; color: var(--t2);
+  letter-spacing: 0.5px; z-index: 10; pointer-events: none; }
+.layout-scale { display: flex; align-items: center; gap: 6px; padding: 6px 0;
+  color: var(--t3); font-size: 10px; }
+.layout-scale input { width: 50px; background: var(--card); border: 1px solid var(--brd);
+  color: var(--t1); padding: 4px; border-radius: 3px; text-align: center; }
+.layout-count { margin-left: auto; }
+
+/* Element palette (modal) */
+.pmask { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 8000; display: none; align-items: flex-end; }
+.pmask.on { display: flex; }
+.pbox { background: var(--bg2); border-top: 2px solid var(--gold);
+  border-radius: 12px 12px 0 0; width: 100%; max-height: 70vh; overflow-y: auto; padding: 14px; }
+.pbox-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.pbox-hdr h3 { margin: 0; color: var(--gold); font-size: 11px; letter-spacing: 2px; }
+.pbox-close { background: transparent; border: 1px solid var(--brd); color: var(--t1);
+  padding: 5px 10px; border-radius: 4px; font-size: 10px; }
+.pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.pel { background: var(--card); border: 1px solid var(--brd); border-radius: 6px;
+  padding: 10px 4px; text-align: center; }
+.pel svg { width: 28px; height: 28px; }
+.pel-name { font-size: 9px; font-weight: 700; margin-top: 4px; line-height: 1.1; }
+
+/* Saves drawer */
+.dmask { position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+  z-index: 8000; display: none; align-items: center; justify-content: center; padding: 20px; }
+.dmask.on { display: flex; }
+.dbox { background: var(--bg2); border: 2px solid var(--gold);
+  border-radius: 10px; padding: 18px; max-width: 400px; width: 100%;
+  max-height: 80vh; overflow-y: auto; }
+.dbox h3 { color: var(--gold); font-size: 12px; letter-spacing: 2px; margin: 0 0 12px; }
+.dbox input, .dbox button { width: 100%; padding: 11px; background: var(--card);
+  color: var(--t1); border: 1px solid var(--brd); border-radius: 5px;
+  font-size: 13px; margin-bottom: 6px; }
+.dbox button { background: var(--gold); color: var(--navy); font-weight: 900; letter-spacing: 2px; font-size: 11px; }
+.dbox button.ghost { background: transparent; }
+.saved-list { border-top: 1px solid var(--brd); padding-top: 10px; margin-top: 10px; }
+.saved-item { display: flex; gap: 6px; padding: 8px; background: var(--card);
+  border-radius: 4px; margin-bottom: 5px; align-items: center; }
+.saved-item span { flex: 1; font-size: 11px; }
+.saved-item small { display: block; color: var(--t3); font-size: 9px; margin-top: 2px; }
+.saved-item button { width: auto; padding: 5px 9px; font-size: 9px; margin: 0 0 0 3px; }
+
+/* Print output */
+@media print {
+  html, html[data-theme="dark"] { --bg:#fff; --bg2:#fff; --card:#fff; --brd:#999;
+    --t1:#000; --t2:#222; --t3:#444; --navy:#0B1F3A; --navy-d:#0B1F3A; --gold:#8A7223; }
+  #ddGate { display: none !important; }
+  body { background: white; color: black; }
+  .tb, .wiz, .nav, .pmask, .dmask, .layout-tools, .layout-scale,
+  .no-print, .type-check, button { display: none !important; }
+  .app.on { display: block !important; }
+  .content { max-width: none; padding: 0; }
+  .step { display: block !important; page-break-inside: avoid; }
+  .review-sec { border: 1px solid #ccc; background: white; page-break-inside: avoid; }
+  .review-sec h4 { color: #0B1F3A; }
+  .review-row { color: black; }
+  .review-row b { color: #555; }
+  .review-row span { color: black; }
+  h1, h2, h3, h4 { color: #0B1F3A; }
+  .print-hdr { display: block !important; text-align: center;
+    padding: 20px 0; border-bottom: 3px solid #C8A951; margin-bottom: 20px; }
+  .print-hdr h1 { color: #0B1F3A; margin: 0; }
+  .print-hdr .prb { color: #C8A951; font-size: 11px; letter-spacing: 4px; font-weight: 700; }
+}
+.print-hdr { display: none; }
+
+/* ---- added: theme toggle, wellbeing opener, scope flags, close block ---- */
+.notice { border-left: 4px solid var(--gold); background: var(--bg2); border-radius: 0 8px 8px 0;
+  padding: 11px 13px; margin: 0 0 14px; font-size: 12px; line-height: 1.5; color: var(--t1); }
+.notice.red { border-left-color: var(--red); }
+.notice b { color: var(--t1); }
+.notice .nh { display:block; font-size:10px; letter-spacing:2px; font-weight:700;
+  color: var(--gold); margin-bottom: 4px; text-transform: uppercase; }
+.notice.red .nh { color: var(--red); }
+.say { font-size: 14px; font-weight: 700; color: var(--t1); display:block; margin: 6px 0; }
+.flagcard { border: 1px solid var(--brd); border-left-width: 5px; border-radius: 0 8px 8px 0;
+  background: var(--card); padding: 11px 13px; margin-bottom: 9px; }
+.flagcard.hit { border-left-color: var(--red); }
+.flagcard.clear { border-left-color: var(--green); }
+.flagcard.always { border-left-color: var(--gold); }
+.flagcard h5 { margin: 0 0 3px; font-size: 12px; letter-spacing: .6px; color: var(--t1); }
+.flagcard p { margin: 0; font-size: 11.5px; color: var(--t2); line-height: 1.5; }
+.flagtag { float: right; font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  border: 1px solid var(--brd); border-radius: 99px; padding: 1px 8px; color: var(--t3); }
+.flagtag.hit { border-color: var(--red); color: var(--red); }
+.flagtag.clear { border-color: var(--green); color: var(--green); }
+.flagtag.always { border-color: var(--gold); color: var(--amber); }
+.flagown { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 9px; }
+.flagown label { display: block; font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--t3); font-weight: 700; margin-bottom: 3px; }
+.flagown input { width: 100%; padding: 8px; border: 1px solid var(--brd); border-radius: 5px;
+  background: var(--bg2); color: var(--t1); font-size: 14px; }
+.flagown input.missing { border-color: var(--red); }
+@media print {
+  .flagcard { border: 1px solid #555 !important; border-left: 4px solid #000 !important;
+    background: #fff !important; color: #000 !important; }
+  .flagcard h5, .flagcard p { color: #000 !important; }
+  .flagtag { color: #000 !important; border-color: #555 !important; }
+  .notice { background: #fff !important; color: #000 !important; border-left-color: #000 !important; }
+  .notice .nh { color: #000 !important; }
+}
+
+
+/* ---- DanDDee access gate. Brand here is DanDDee; everything behind it is AAA. ---- */
+#ddGate{position:fixed;inset:0;z-index:9999;background:#12203A;
+  background-image:radial-gradient(ellipse at 50% -10%, #223C6B 0%, #12203A 58%, #0A1426 100%);
+  display:flex;align-items:center;justify-content:center;padding:22px;overflow-y:auto;
+  font-family:Calibri,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:#EEF1F7}
+#ddGate.hidden{display:none}
+.ddg-box{width:100%;max-width:400px;text-align:center}
+.ddg-mark{width:96px;height:96px;margin:0 auto 14px}
+.ddg-mark svg{width:96px;height:96px;display:block}
+.ddg-wm{font-family:Cambria,Georgia,serif;font-weight:700;font-size:2rem;letter-spacing:.4px;color:#fff;margin:0}
+.ddg-tl{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:#C9A648;margin:2px 0 4px}
+.ddg-rule{height:3px;width:56px;background:#CC0000;border-radius:2px;margin:12px auto 16px}
+.ddg-tool{font-size:.95rem;color:#C3CDDE;margin:0 0 18px}
+.ddg-tool b{color:#fff}
+.ddg-card{background:rgba(255,255,255,.055);border:1px solid rgba(201,166,72,.34);
+  border-radius:16px;padding:18px;backdrop-filter:blur(2px)}
+.ddg-lab{display:block;text-align:left;font-size:.74rem;letter-spacing:.7px;text-transform:uppercase;
+  color:#C9A648;font-weight:700;margin-bottom:6px}
+#ddGateCode{width:100%;padding:14px;border-radius:11px;border:1px solid rgba(201,166,72,.45);
+  background:rgba(8,16,30,.72);color:#fff;font-size:17px;font-family:inherit;letter-spacing:1px;text-align:center}
+#ddGateCode:focus{outline:2px solid #C9A648;outline-offset:1px}
+#ddGateBtn{width:100%;margin-top:11px;padding:14px;border-radius:11px;border:1px solid #CC0000;
+  background:#CC0000;color:#fff;font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer}
+#ddGateBtn:disabled{opacity:.45;cursor:not-allowed}
+.ddg-msg{min-height:20px;margin-top:11px;font-size:.84rem;color:#FF8A8A}
+.ddg-msg.ok{color:#8FD9AE}
+.ddg-foot{margin-top:16px;font-size:.72rem;color:#8FA0BC;line-height:1.5}
+.ddg-foot b{color:#C9A648}
+.ddg-roles{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.ddg-role{font-size:.64rem;letter-spacing:.8px;text-transform:uppercase;border:1px solid rgba(201,166,72,.4);
+  border-radius:99px;padding:3px 10px;color:#C9A648}
+@media (max-width:420px){.ddg-mark,.ddg-mark svg{width:76px;height:76px}.ddg-wm{font-size:1.65rem}}
+
+</style>
+</head>
+<body>
+
+<div id="ddGate" role="dialog" aria-modal="true" aria-label="DanDDee access gate">
+  <div class="ddg-box">
+    <div class="ddg-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="DanDDee"><title>DanDDee</title><line x1="95.00" y1="80.00" x2="130.00" y2="80.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(130.00 80.00) rotate(90.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="92.99" y1="87.50" x2="123.30" y2="105.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(123.30 105.00) rotate(120.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="87.50" y1="92.99" x2="105.00" y2="123.30" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(105.00 123.30) rotate(150.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="80.00" y1="95.00" x2="80.00" y2="130.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(80.00 130.00) rotate(180.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="72.50" y1="92.99" x2="55.00" y2="123.30" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(55.00 123.30) rotate(210.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="67.01" y1="87.50" x2="36.70" y2="105.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(36.70 105.00) rotate(240.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="65.00" y1="80.00" x2="30.00" y2="80.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(30.00 80.00) rotate(270.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="67.01" y1="72.50" x2="36.70" y2="55.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(36.70 55.00) rotate(300.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="72.50" y1="67.01" x2="55.00" y2="36.70" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(55.00 36.70) rotate(330.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="80.00" y1="65.00" x2="80.00" y2="30.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(80.00 30.00) rotate(360.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><circle cx="80.00" cy="80.00" r="13" fill="#C9A648"/></svg></div>
+    <p class="ddg-wm">DanDDee</p>
+    <div class="ddg-tl">One head. A hundred landings.</div>
+    <div class="ddg-rule"></div>
+    <p class="ddg-tool">You are entering <b>AAA Commercial Sales Intake</b></p>
+    <div class="ddg-card">
+      <label class="ddg-lab" for="ddGateCode">Access code</label>
+      <input type="password" id="ddGateCode" inputmode="text" autocomplete="off"
+             autocapitalize="none" spellcheck="false" placeholder="Enter your code">
+      <button id="ddGateBtn" type="button">Unlock</button>
+      <div class="ddg-msg" id="ddGateMsg" role="status" aria-live="polite"></div>
+      <div class="ddg-roles"><span class="ddg-role">Dealer</span><span class="ddg-role">Rep</span><span class="ddg-role">Manager</span></div>
+    </div>
+    <div class="ddg-foot">
+      Codes are issued by <b>National Field Operations</b> and are not shared between people or roles.
+      Lost or leaked code? Report it the same day &mdash; it is cheaper than the alternative.
+      <br><br>This gate controls entry, not permissions. It is not a substitute for your device lock
+      or for the sharing settings on this tool.
+    </div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="app" id="app">
+  <div class="tb">
+    <div class="tb-brand">AAA SALES INTAKE<small>Commercial Scoping</small></div>
+    <button class="tb-btn" onclick="ddTheme()" id="ddThemeBtn">DARK</button>
+      <button class="tb-btn" onclick="openSaves()">SAVES</button>
+    <button class="tb-btn" onclick="window.open('https://www.danddeeintake.com','_blank')">CONFIG ↗</button>
+  </div>
+
+  <div class="wiz">
+    <div class="wiz-step on" data-step="1" onclick="goto(1)">1. HEADER</div>
+    <div class="wiz-step" data-step="2" onclick="goto(2)">2. TYPES</div>
+    <div class="wiz-step" data-step="3" onclick="goto(3)">3. DETAILS</div>
+    <div class="wiz-step" data-step="4" onclick="goto(4)">4. SKETCH</div>
+    <div class="wiz-step" data-step="5" onclick="goto(5)">5. REVIEW</div>
+  </div>
+
+  <div class="content">
+
+    <!-- Print header (only visible when printing) -->
+    <div class="print-hdr">
+      <div class="prb">AAA SMART SECURITY · COMMERCIAL SALES INTAKE</div>
+      <h1 id="printTitle">Sales Quote Survey</h1>
+    </div>
+
+    <!-- ============ STEP 1: HEADER ============ -->
+    <div class="step on" id="step1">
+      <h2>STEP 1 OF 5</h2>
+      <h1>Site &amp; Contact Info</h1>
+      <p class="help">Same header data captured by Fulcrum Sales Quote Survey. All fields with <span style="color:var(--red)">*</span> are required.</p>
+<div class="notice"><span class="nh">Open here. Every time.</span>
+  <span class="say">&ldquo;Are you safe? Are you in a secure location? Is everything okay?&rdquo;</span>
+  Wellbeing before business. Identify yourself, your company and your purpose inside ten seconds.
+  Never open with billing, an account, or a price.</div>
+<div class="notice red"><span class="nh">Handling</span>
+  This intake holds prospect contact details on <b>this device only</b>, behind an entry gate that is not
+  encryption. Do not enter account numbers, panel account codes, or anything you would not hand to a
+  stranger who picked up this phone. If <b>Existing Member</b> is YES, treat everything below as member
+  data and get it into the CRM and off this device the same day.</div>
+
+
+      <div class="sec">
+        <div class="sec-hdr"><span class="badge">REP</span><h3>Sales Representative</h3></div>
+        <div class="grid2">
+          <div class="fld"><label>Rep Name <span class="req">*</span></label><input id="f_rep_name" type="text"></div>
+          <div class="fld"><label>Rep Mobile</label><input id="f_rep_mobile" type="tel" placeholder="602-555-0100"></div>
+        </div>
+        <div class="fld"><label>Date</label><input id="f_date" type="date"></div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-hdr"><span class="badge">PROSPECT</span><h3>Prospect &amp; Site Contact</h3></div>
+        <div class="fld"><label>Prospect / Business Name <span class="req">*</span></label><input id="f_prospect" type="text"></div>
+        <div class="grid2">
+          <div class="fld"><label>Site Contact Name <span class="req">*</span></label><input id="f_contact_name" type="text"></div>
+          <div class="fld"><label>Contact Phone</label><input id="f_contact_phone" type="tel"></div>
+        </div>
+        <div class="fld"><label>Prospect Email <span class="req">*</span></label><input id="f_email" type="email"></div>
+        <div class="fld">
+          <label>Existing Member?</label>
+          <div class="chips">
+            <div class="chip" data-chip="member" data-val="yes" onclick="chip(this)">YES</div>
+            <div class="chip" data-chip="member" data-val="no" onclick="chip(this)">NO</div>
+            <div class="chip" data-chip="member" data-val="na" onclick="chip(this)">N/A</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-hdr"><span class="badge">LOCATION</span><h3>Site Address</h3></div>
+        <div class="fld">
+          <label>Location New or Existing?</label>
+          <div class="chips">
+            <div class="chip" data-chip="loc_type" data-val="new" onclick="chip(this)">NEW LOCATION</div>
+            <div class="chip" data-chip="loc_type" data-val="existing" onclick="chip(this)">EXISTING</div>
+          </div>
+        </div>
+        <div class="fld"><label>Location / Building Name</label><input id="f_loc_name" type="text" placeholder="e.g. Foothills Building 8"></div>
+        <div class="fld"><label>Street Address <span class="req">*</span></label><input id="f_address" type="text"></div>
+        <div class="grid3">
+          <div class="fld"><label>City</label><input id="f_city" type="text"></div>
+          <div class="fld"><label>State</label><input id="f_state" type="text" maxlength="2" style="text-transform:uppercase"></div>
+          <div class="fld"><label>ZIP</label><input id="f_zip" type="text" maxlength="10"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ STEP 2: TYPES ============ -->
+    <div class="step" id="step2">
+      <h2>STEP 2 OF 5</h2>
+      <h1>Sales Quote Type</h1>
+      <p class="help">Tap every system this scope will include. Detailed questions appear in Step 3 for each type selected.</p>
+      <div class="type-list" id="typeList"></div>
+    </div>
+
+    <!-- ============ STEP 3: PER-TYPE DETAIL ============ -->
+    <div class="step" id="step3">
+      <h2>STEP 3 OF 5</h2>
+      <h1>System Details</h1>
+      <p class="help">Answer what the site or member can provide. Skip anything unknown — you can circle back.</p>
+      <div id="detailHost"></div>
+    </div>
+
+    <!-- ============ STEP 4: LAYOUT SKETCH ============ -->
+    <div class="step" id="step4">
+      <h2>STEP 4 OF 5</h2>
+      <h1>Layout Sketch</h1>
+      <p class="help">Sketch the space. Tap for wall points (double-tap to end a chain). Drop devices from the palette. Included with the intake output.</p>
+
+      <div class="layout-host" id="layoutHost">
+        <canvas id="canvas"></canvas>
+        <div class="sel-hint" id="selHint" style="display:none">Tap an item to select · Drag endpoints to reshape</div>
+        <div class="sel-chip" id="selChip">
+          <div class="sel-row1">
+            <span id="selChipText">Selected</span>
+            <button onclick="deleteSelected()">DELETE ×</button>
+          </div>
+          <div class="sel-row2" id="selRow2" style="display:none">
+            <label>L <input type="number" id="selLen" step="0.5" min="0.5"
+              onchange="applyLen()"
+              onkeydown="if(event.key==='Enter'){this.blur();}"> ft</label>
+            <label>∠ <input type="number" id="selAng" step="15"
+              onchange="applyAng()"
+              onkeydown="if(event.key==='Enter'){this.blur();}"> °</label>
+          </div>
+        </div>
+      </div>
+      <div class="layout-scale">
+        <span>Scale: 1 grid =</span>
+        <input type="number" id="scaleInput" value="5" min="1" max="99" onchange="setScale(this.value)">
+        <span>ft</span>
+        <span class="layout-count" id="layoutCount">0 items</span>
+      </div>
+      <div class="layout-tools">
+        <div class="layout-tool" data-tool="select" onclick="setTool('select')"><span class="lt-ic">👆</span>SELECT</div>
+        <div class="layout-tool on" data-tool="wall" onclick="setTool('wall')"><span class="lt-ic">▬</span>WALL</div>
+        <div class="layout-tool" data-tool="door" onclick="setTool('door')"><span class="lt-ic">🚪</span>DOOR</div>
+        <div class="layout-tool" data-tool="window" onclick="setTool('window')"><span class="lt-ic">▢</span>WIN</div>
+        <div class="layout-tool" data-tool="element" onclick="openPalette()"><span class="lt-ic">📷</span>DEVICE</div>
+        <div class="layout-tool" data-tool="erase" onclick="setTool('erase')"><span class="lt-ic">✕</span>ERASE</div>
+        <div class="layout-tool" onclick="lundo()"><span class="lt-ic">↶</span>UNDO</div>
+      </div>
+    </div>
+
+    <!-- ============ STEP 5: REVIEW / EXPORT ============ -->
+    <div class="step" id="step5">
+      <h2>STEP 5 OF 5</h2>
+      <h1>Review &amp; Handoff</h1>
+      <p class="help">Confirm the intake, capture status + notes, then print (browser saves as PDF). Attach the PDF to your Fulcrum Sales Quote Survey record as a Reference File.</p>
+
+      <div class="sec">
+        <div class="sec-hdr"><span class="badge">STATUS</span><h3>Report Status</h3></div>
+        <div class="fld">
+          <label>Route this intake to</label>
+          <div class="chips">
+            <div class="chip" data-chip="status" data-val="more_info" onclick="chip(this)">MORE INFO NEEDED</div>
+            <div class="chip" data-chip="status" data-val="in_progress" onclick="chip(this)">IN PROGRESS</div>
+            <div class="chip" data-chip="status" data-val="site_complete" onclick="chip(this)">SITE SURVEY COMPLETE</div>
+            <div class="chip" data-chip="status" data-val="sent_office" onclick="chip(this)">SENT TO OFFICE</div>
+            <div class="chip" data-chip="status" data-val="reports_sent" onclick="chip(this)">REPORTS SENT</div>
+          </div>
+        </div>
+        <div class="fld"><label>Proposal Provided to Member?</label>
+          <div class="chips">
+            <div class="chip" data-chip="proposal" data-val="yes" onclick="chip(this)">YES</div>
+            <div class="chip" data-chip="proposal" data-val="no" onclick="chip(this)">NOT YET</div>
+          </div>
+        </div>
+        <div class="fld"><label>Field Lead Expert Site Walk Requested?</label>
+          <div class="chips">
+            <div class="chip" data-chip="fielead" data-val="yes" onclick="chip(this)">YES</div>
+            <div class="chip" data-chip="fielead" data-val="no" onclick="chip(this)">NO</div>
+          </div>
+        </div>
+        <div class="fld"><label>Additional Services of Interest</label>
+          <textarea id="f_addl" placeholder="Prospect asked about..."></textarea>
+        </div>
+        <div class="fld"><label>Overall Job Scope Notes</label>
+          <textarea id="f_scope" placeholder="Freeform notes about the site, decision maker, budget, timeline, competitors..."></textarea>
+        </div>
+      </div>
+
+      <div class="sec">
+  <div class="sec-hdr"><span class="badge">CLOSE</span><h3>True North Close</h3></div>
+  <div class="notice"><span class="nh">Read this out loud before you leave</span>
+    &ldquo;Here is what I heard from you today, in your words. Here is what I can do about it, and here is
+    the part I have to take back to a specialist before I promise you anything. You will hear from me by
+    the date below, whether or not I have an answer yet.&rdquo;</div>
+  <div class="fld"><label>Recap in their words &mdash; what they told you they are protecting</label>
+    <textarea id="f_tn_recap" placeholder="Not what you want to sell. What they said."></textarea></div>
+  <div class="fld"><label>The single next step</label>
+    <textarea id="f_tn_next" placeholder="One action, not a list."></textarea></div>
+  <div class="grid2">
+    <div class="fld"><label>Who owns it</label><input id="f_tn_owner" type="text" placeholder="Role or DLR #"></div>
+    <div class="fld"><label>By when</label><input id="f_tn_due" type="date"></div>
+  </div>
+</div>
+<div id="ddFlagsHost"></div>
+<div id="reviewHost"></div>
+
+      <div class="sec no-print">
+        <div class="sec-hdr"><span class="badge">EXPORT</span><h3>Handoff</h3></div>
+        <button class="tb-btn gold" style="width:100%;padding:14px;font-size:13px" onclick="printOut()">🖨 PRINT / SAVE AS PDF</button>
+        <div style="height:8px"></div>
+        <button class="tb-btn" style="width:100%;padding:12px" onclick="saveCurrent()">💾 SAVE THIS INTAKE</button>
+        <div style="height:8px"></div>
+        <button class="tb-btn" style="width:100%;padding:12px" onclick="copyPlain()">📋 COPY AS TEXT</button>
+          <div style="height:8px"></div>
+          <button class="tb-btn" style="width:100%;padding:12px" onclick="ddDownloadSheet()">⬇ DOWNLOAD HANDOFF SHEET</button>
+        <small style="display:block;margin-top:10px;color:var(--t3);font-size:10px">
+          Print → in the browser print dialog choose "Save as PDF" → attach the PDF as a Reference File on the Fulcrum Sales Quote Survey record for this prospect.
+        </small>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Nav footer -->
+  <div class="nav">
+    <button id="btnPrev" onclick="prev()">◀ BACK</button>
+    <button id="btnNext" class="primary" onclick="next()">NEXT ▶</button>
+  </div>
+</div>
+
+<!-- Element palette -->
+<div class="pmask" id="pmask" onclick="if(event.target===this)closePalette()">
+  <div class="pbox">
+    <div class="pbox-hdr">
+      <h3>PLACE A DEVICE</h3>
+      <button class="pbox-close" onclick="closePalette()">Close ×</button>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
+</div>
+
+<!-- Saves drawer -->
+<div class="dmask" id="dmask" onclick="if(event.target===this)closeSaves()">
+  <div class="dbox">
+    <h3>SAVED INTAKES</h3>
+    <input type="text" id="saveName" placeholder="Name (e.g. Acme Corp - Bldg 8)" maxlength="80">
+    <button onclick="saveCurrent()">SAVE CURRENT</button>
+    <button class="ghost" onclick="newIntake()">START BLANK INTAKE</button>
+    <button class="ghost" onclick="closeSaves()">CLOSE</button>
+    <div class="saved-list" id="savedList"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ============ CONSTANTS ============
+const STORAGE_KEY = "aaa.intake.v2";
+const GRID = 40;
+
+// Sales Quote Types
+const TYPES = [
+  { id: 'intrusion', name: 'Intrusion Alarm',       sub: 'Panel, sensors, keypads', icon: '🛡️', detailed: true },
+  { id: 'video',     name: 'Video System',          sub: 'Cameras, NVR, retention', icon: '📹', detailed: true },
+  { id: 'access',    name: 'Access Control',        sub: 'Card readers, doors',     icon: '🔐', detailed: true },
+  { id: 'fire',      name: 'Fire Alarm',            sub: 'Panel, devices, notification', icon: '🚨', detailed: true },
+  { id: 'inspection',name: 'Fire Inspection',       sub: 'Annual / periodic proposal',icon: '📋', detailed: false },
+  { id: 'gates',     name: 'Gates',                 sub: 'Vehicle / pedestrian',    icon: '🚧', detailed: false },
+  { id: 'sitewalk',  name: 'Site Walk Survey',      sub: 'General site walk',       icon: '🚶', detailed: false },
+];
+
+// Detailed question banks per type (commercial focus)
+const QUESTIONS = {
+  intrusion: {
+    label: 'Commercial Intrusion Alarm',
+    fields: [
+      { id: 'int_bldg_type', label: 'Building type', kind: 'select', opts: ['Office', 'Warehouse', 'Retail', 'Medical', 'School', 'Restaurant', 'Mixed use', 'Other'] },
+      { id: 'int_sqft', label: 'Approx square footage', kind: 'text', placeholder: 'e.g. 12000' },
+      { id: 'int_ext_doors', label: '# Exterior doors to secure', kind: 'text' },
+      { id: 'int_windows', label: '# Ground-level accessible windows', kind: 'text' },
+      { id: 'int_dock_doors', label: '# Overhead / dock doors', kind: 'text' },
+      { id: 'int_motion_zones', label: '# Interior motion zones needed', kind: 'text' },
+      { id: 'int_glass_rooms', label: 'Glass break coverage rooms', kind: 'text' },
+      { id: 'int_panel_loc', label: 'Panel location preference', kind: 'text', placeholder: 'e.g. IT closet, mechanical room' },
+      { id: 'int_keypad_ct', label: '# Keypads + locations', kind: 'textarea' },
+      { id: 'int_monitor', label: 'Primary monitoring path', kind: 'chip', opts: ['Cellular', 'Internet', 'Dual path'] },
+      { id: 'int_ul', label: 'UL certificate required?', kind: 'chip', opts: ['Yes', 'No', 'Unsure'] },
+      { id: 'int_existing', label: 'Existing system to replace?', kind: 'textarea', placeholder: 'Brand, age, reason for change' },
+      { id: 'int_hours', label: 'Hours of operation (arming schedule)', kind: 'text', placeholder: 'e.g. M-F 6am-8pm, closed weekends' },
+      { id: 'int_users', label: 'Approx # user codes needed', kind: 'text' },
+      { id: 'int_duress', label: 'Duress / hold-up buttons?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'int_env', label: 'Environmental monitoring?', kind: 'chip', opts: ['Temp', 'Water', 'Gas', 'None'] },
+      { id: 'int_2way', label: 'Two-way voice / speaker?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'int_notes', label: 'Additional intrusion notes', kind: 'textarea' },
+    ]
+  },
+  video: {
+    label: 'Commercial Video System',
+    fields: [
+      { id: 'vid_count', label: '# Cameras (best estimate)', kind: 'text' },
+      { id: 'vid_where', label: 'Interior / exterior', kind: 'chip', opts: ['Interior only', 'Exterior only', 'Both'] },
+      { id: 'vid_res', label: 'Resolution needs', kind: 'chip', opts: ['2MP', '4MP', '8MP', 'Mixed'] },
+      { id: 'vid_ir', label: 'Night vision / IR required?', kind: 'chip', opts: ['Yes', 'No', 'Some'] },
+      { id: 'vid_lpr', label: 'License plate capture points', kind: 'text', placeholder: 'e.g. 2 at entry gates' },
+      { id: 'vid_retain', label: 'Video retention days', kind: 'chip', opts: ['7', '14', '30', '60', '90', '365'] },
+      { id: 'vid_recloc', label: 'Recording location', kind: 'chip', opts: ['On-prem NVR', 'Cloud', 'Hybrid'] },
+      { id: 'vid_users', label: '# Remote viewing users', kind: 'text' },
+      { id: 'vid_mobile', label: 'Mobile app access required?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'vid_coax', label: 'Existing coax to reuse?', kind: 'chip', opts: ['Yes', 'No', 'Some', 'Unknown'] },
+      { id: 'vid_poe', label: 'PoE switch available or needed?', kind: 'chip', opts: ['Have it', 'Need it', 'Unsure'] },
+      { id: 'vid_ups', label: 'UPS / battery backup?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'vid_analytics', label: 'Analytics needed', kind: 'textarea', placeholder: 'Line crossing, person detect, LPR, heat map...' },
+      { id: 'vid_integrate', label: 'Integration with existing access?', kind: 'chip', opts: ['Yes', 'No', 'N/A'] },
+      { id: 'vid_signage', label: 'Signage requirements', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'vid_compliance', label: 'Compliance requirements', kind: 'textarea', placeholder: 'HIPAA / PCI / other' },
+      { id: 'vid_notes', label: 'Additional video notes', kind: 'textarea' },
+    ]
+  },
+  access: {
+    label: 'Commercial Access Control',
+    fields: [
+      { id: 'acc_doors', label: '# Doors requiring control', kind: 'text' },
+      { id: 'acc_cred', label: 'Credential type', kind: 'chip', opts: ['Card', 'Fob', 'Mobile', 'Biometric', 'Mixed'] },
+      { id: 'acc_hw', label: 'Existing door hardware', kind: 'chip', opts: ['Electric strikes', 'Mag locks', 'Crash bars', 'New install'] },
+      { id: 'acc_rex', label: 'Request-to-Exit method', kind: 'chip', opts: ['Motion', 'Push button', 'Crash bar', 'Touch bar'] },
+      { id: 'acc_dps', label: 'Door position switch on each door?', kind: 'chip', opts: ['Yes', 'No', 'Some'] },
+      { id: 'acc_fire', label: 'Fire alarm interface required?', kind: 'chip', opts: ['Yes', 'No', 'Unsure'] },
+      { id: 'acc_schedule', label: 'Time schedules', kind: 'textarea', placeholder: 'M-F 8-5, weekend, holiday, 24/7 select users...' },
+      { id: 'acc_users', label: '# Cardholders / users', kind: 'text' },
+      { id: 'acc_photo', label: 'Photo ID / card printer?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'acc_hr', label: 'HR system auto-enroll integration?', kind: 'chip', opts: ['Yes', 'No', 'Interested'] },
+      { id: 'acc_apb', label: 'Anti-passback required?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'acc_muster', label: 'Muster / mustering reporting?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'acc_elev', label: 'Elevator control (floor access)?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'acc_visitor', label: 'Visitor management add-on?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'acc_takeover', label: 'Existing panel takeover?', kind: 'textarea', placeholder: 'Brand + panel model if known' },
+      { id: 'acc_multi', label: 'Multi-tenant / per-suite access?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'acc_compliance', label: 'Compliance requirements', kind: 'textarea', placeholder: 'SOC2, HIPAA, DoD, other' },
+      { id: 'acc_notes', label: 'Additional access notes', kind: 'textarea' },
+    ]
+  },
+  fire: {
+    label: 'Commercial Fire Alarm',
+    fields: [
+      { id: 'fir_sqft', label: 'Building square footage', kind: 'text' },
+      { id: 'fir_floors', label: '# Floors', kind: 'text' },
+      { id: 'fir_occupancy', label: 'Occupancy classification (IBC/NFPA)', kind: 'select', opts: ['A - Assembly', 'B - Business', 'E - Educational', 'F - Factory', 'H - High Hazard', 'I - Institutional', 'M - Mercantile', 'R - Residential', 'S - Storage', 'U - Utility', 'Mixed'] },
+      { id: 'fir_sprinkler', label: 'Sprinklered?', kind: 'chip', opts: ['Fully', 'Partial', 'None'] },
+      { id: 'fir_new_over', label: 'New system or takeover?', kind: 'chip', opts: ['New', 'Takeover'] },
+      { id: 'fir_existing', label: 'Existing panel manufacturer + age (if takeover)', kind: 'text' },
+      { id: 'fir_smokes', label: '# Smoke detectors', kind: 'text' },
+      { id: 'fir_heats', label: '# Heat detectors', kind: 'text' },
+      { id: 'fir_pulls', label: '# Pull stations', kind: 'text' },
+      { id: 'fir_ducts', label: '# Duct detectors', kind: 'text' },
+      { id: 'fir_waterflow', label: '# Waterflow switches', kind: 'text' },
+      { id: 'fir_notify', label: '# Notification devices (horn/strobe)', kind: 'text' },
+      { id: 'fir_voice', label: 'Voice evacuation required?', kind: 'chip', opts: ['Yes', 'No', 'Recommend'] },
+      { id: 'fir_elev', label: 'Elevator recall (Phase I & II)?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'fir_hvac', label: 'HVAC shutdown required?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'fir_doors', label: 'Fire door hold-open interface?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'fir_kitchen', label: 'Kitchen suppression tie-in?', kind: 'chip', opts: ['Yes', 'No', 'N/A'] },
+      { id: 'fir_reporting', label: 'Municipal reporting path', kind: 'chip', opts: ['Masterbox', 'Radio', 'Cellular DACT', 'IP', 'Multiple'] },
+      { id: 'fir_ahj', label: 'AHJ + Fire Marshal contact', kind: 'textarea', placeholder: 'Jurisdiction, marshal name, phone/email' },
+      { id: 'fir_cert', label: 'Current inspection certificate + expiration', kind: 'text' },
+      { id: 'fir_addon', label: 'Requires backflow / hood / extinguisher inspection add-ons?', kind: 'textarea' },
+      { id: 'fir_access', label: 'Install access considerations', kind: 'textarea', placeholder: 'Roof access, drop ceilings, tight closets, occupied hours' },
+      { id: 'fir_union', label: 'Union / prevailing wage jurisdiction?', kind: 'chip', opts: ['Yes', 'No', 'Unsure'] },
+      { id: 'fir_notes', label: 'Additional fire notes', kind: 'textarea' },
+    ]
+  },
+  inspection: {
+    label: 'Fire Inspection Proposal',
+    fields: [
+      { id: 'ins_sqft', label: 'Building sq ft', kind: 'text' },
+      { id: 'ins_scope', label: 'Systems to inspect', kind: 'textarea', placeholder: 'Fire alarm, sprinkler, kitchen hood, extinguishers, backflow...' },
+      { id: 'ins_freq', label: 'Inspection frequency', kind: 'chip', opts: ['Annual', 'Semi-annual', 'Quarterly', 'Monthly'] },
+      { id: 'ins_last', label: 'Last inspection date + inspector', kind: 'text' },
+      { id: 'ins_ahj', label: 'Jurisdiction / AHJ', kind: 'text' },
+      { id: 'ins_notes', label: 'Additional notes', kind: 'textarea' },
+    ]
+  },
+  gates: {
+    label: 'Gates',
+    fields: [
+      { id: 'gat_type', label: 'Vehicle / pedestrian', kind: 'chip', opts: ['Vehicle', 'Pedestrian', 'Both'] },
+      { id: 'gat_existing', label: 'Existing operator? Brand?', kind: 'text' },
+      { id: 'gat_access', label: 'Access control integration', kind: 'chip', opts: ['Card', 'Keypad', 'RFID', 'Loops', 'Callbox', 'Mobile'] },
+      { id: 'gat_loops', label: 'Vehicle loops in place?', kind: 'chip', opts: ['Yes', 'No', 'Partial'] },
+      { id: 'gat_ul325', label: 'UL 325 safety devices required?', kind: 'chip', opts: ['Yes', 'No'] },
+      { id: 'gat_entries', label: '# Entries / exits', kind: 'text' },
+      { id: 'gat_power', label: 'Power available at gate?', kind: 'chip', opts: ['Yes', 'No', 'Solar', 'Need to run'] },
+      { id: 'gat_comm', label: 'Communication back to control?', kind: 'text' },
+      { id: 'gat_notes', label: 'Additional gate notes', kind: 'textarea' },
+    ]
+  },
+  sitewalk: {
+    label: 'Site Walk Survey',
+    fields: [
+      { id: 'sw_areas', label: 'Areas walked', kind: 'textarea' },
+      { id: 'sw_photos', label: 'Photos captured? Where stored?', kind: 'text' },
+      { id: 'sw_findings', label: 'Key findings / observations', kind: 'textarea' },
+      { id: 'sw_concerns', label: 'Concerns / risks identified', kind: 'textarea' },
+      { id: 'sw_next', label: 'Recommended next steps', kind: 'textarea' },
+    ]
+  },
+};
+
+// Layout Studio elements
+const ELEMENTS = [
+  { id: 'camera',      name: 'Fixed Camera',  prefix: 'CAM',  color: '#4A9EFF' },
+  { id: 'ptz',         name: 'PTZ Camera',    prefix: 'PTZ',  color: '#3B82F6' },
+  { id: 'motion',      name: 'Motion Sensor', prefix: 'MOT',  color: '#F59E0B' },
+  { id: 'door_sensor', name: 'Door Contact',  prefix: 'DS',   color: '#10B981' },
+  { id: 'glass',       name: 'Glass Break',   prefix: 'GB',   color: '#EF4444' },
+  { id: 'keypad',      name: 'Keypad',        prefix: 'KP',   color: '#8B5CF6' },
+  { id: 'panel',       name: 'Panel',         prefix: 'PN',   color: '#C8A951' },
+  { id: 'smoke',       name: 'Smoke / Heat',  prefix: 'SM',   color: '#DC2626' },
+  { id: 'pull',        name: 'Pull Station',  prefix: 'PS',   color: '#B91C1C' },
+  { id: 'strobe',      name: 'Horn/Strobe',   prefix: 'HS',   color: '#F97316' },
+  { id: 'reader',      name: 'Card Reader',   prefix: 'CR',   color: '#7C3AED' },
+  { id: 'rex',         name: 'REX (Motion)',  prefix: 'RX',   color: '#0EA5E9' },
+];
+
+// ============ STATE ============
+const state = {
+  step: 1,
+  data: {},           // form field values
+  chips: {},          // chip picks by group
+  types: [],          // selected type ids
+  layout: {
+    items: [], scale: 5, unit: 'ft', tool: 'wall', pendingEl: null,
+    wallStart: null, nextId: 1, history: [],
+    selected: null,   // { id, handle: 'p1'|'p2'|'body' }
+    drag: null,       // { startX, startY, origItem }
+  },
+};
+
+// ============ GATE — see DanDDee gate block at end of file ============
+
+// ============ WIZARD ============
+function goto(n) {
+  if (n < 1 || n > 5) return;
+  captureCurrent();
+  state.step = n;
+  document.querySelectorAll('.step').forEach(el => el.classList.remove('on'));
+  document.getElementById('step' + n).classList.add('on');
+  document.querySelectorAll('.wiz-step').forEach(el => {
+    const s = parseInt(el.dataset.step);
+    el.classList.toggle('on', s === n);
+    el.classList.toggle('done', s < n);
+  });
+  document.getElementById('btnPrev').disabled = (n === 1);
+  document.getElementById('btnNext').textContent = (n === 5 ? 'PRINT ▶' : 'NEXT ▶');
+  window.scrollTo(0, 0);
+  if (n === 3) renderDetail();
+  if (n === 4) setTimeout(resizeCanvas, 50);
+  if (n === 5) renderReview();
+}
+function next() {
+  if (state.step === 5) { printOut(); return; }
+  goto(state.step + 1);
+}
+function prev() { goto(state.step - 1); }
+
+// ============ CHIPS ============
+function chip(el) {
+  const group = el.dataset.chip;
+  const val = el.dataset.val;
+  // Toggle within group (single select for most)
+  document.querySelectorAll('.chip[data-chip="' + group + '"]').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  state.chips[group] = val;
+}
+function restoreChip(group, val) {
+  if (!val) return;
+  const chips = document.querySelectorAll('.chip[data-chip="' + group + '"]');
+  chips.forEach(c => c.classList.toggle('on', c.dataset.val === val));
+}
+
+// ============ FORMS ============
+function captureCurrent() {
+  document.querySelectorAll('input[id^="f_"], textarea[id^="f_"], select[id^="f_"]').forEach(el => {
+    state.data[el.id] = el.value;
+  });
+  document.querySelectorAll('[id^="q_"]').forEach(el => {
+    state.data[el.id] = el.value;
+  });
+}
+function restoreValues() {
+  Object.keys(state.data).forEach(id => {
+    const el = document.getElementById(id);
+    if (el && ('value' in el)) el.value = state.data[id];
+  });
+  Object.keys(state.chips).forEach(g => restoreChip(g, state.chips[g]));
+}
+
+// ============ STEP 2: TYPE PICKER ============
+function renderTypes() {
+  const host = document.getElementById('typeList');
+  host.innerHTML = TYPES.map(t =>
+    `<div class="type-card ${state.types.includes(t.id) ? 'on' : ''}" onclick="toggleType('${t.id}')">
+      <div class="t-icon">${t.icon}</div>
+      <div class="t-name">${t.name}</div>
+      <div class="t-sub">${t.sub}</div>
+      <div class="t-check">${state.types.includes(t.id) ? '✓' : ''}</div>
+    </div>`
+  ).join('');
+}
+function toggleType(id) {
+  const i = state.types.indexOf(id);
+  if (i >= 0) state.types.splice(i, 1);
+  else state.types.push(id);
+  renderTypes();
+}
+
+// ============ STEP 3: PER-TYPE DETAILS ============
+function renderDetail() {
+  const host = document.getElementById('detailHost');
+  if (state.types.length === 0) {
+    host.innerHTML = '<div class="sec"><p style="color:var(--t3);margin:0">No system types selected. Go back to Step 2 and pick at least one.</p></div>';
+    return;
+  }
+  host.innerHTML = state.types.map(tid => {
+    const t = TYPES.find(x => x.id === tid);
+    const q = QUESTIONS[tid];
+    return `<div class="sec">
+      <div class="sec-hdr"><span class="badge">${t.icon}</span><h3>${q.label}</h3></div>
+      ${q.fields.map(f => renderField(tid, f)).join('')}
+    </div>`;
+  }).join('');
+  restoreValues();
+}
+function renderField(tid, f) {
+  const gid = 'q_' + f.id;
+  if (f.kind === 'text') {
+    return `<div class="fld"><label>${f.label}</label>
+      <input id="${gid}" type="text" placeholder="${f.placeholder || ''}" onchange="stash(this)"></div>`;
+  }
+  if (f.kind === 'textarea') {
+    return `<div class="fld"><label>${f.label}</label>
+      <textarea id="${gid}" placeholder="${f.placeholder || ''}" onchange="stash(this)"></textarea></div>`;
+  }
+  if (f.kind === 'select') {
+    return `<div class="fld"><label>${f.label}</label>
+      <select id="${gid}" onchange="stash(this)">
+        <option value="">-- Select --</option>
+        ${f.opts.map(o => `<option value="${o}">${o}</option>`).join('')}
+      </select></div>`;
+  }
+  if (f.kind === 'chip') {
+    return `<div class="fld"><label>${f.label}</label>
+      <div class="chips">
+        ${f.opts.map(o => `<div class="chip" data-chip="${f.id}" data-val="${o}" onclick="chip(this)">${o.toUpperCase()}</div>`).join('')}
+      </div></div>`;
+  }
+  return '';
+}
+function stash(el) { state.data[el.id] = el.value; }
+
+// ============ STEP 4: LAYOUT STUDIO (embedded) ============
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W = 0, H = 0, DPR = 1;
+
+function resizeCanvas() {
+  const host = document.getElementById('layoutHost');
+  const rect = host.getBoundingClientRect();
+  if (rect.width < 10) return;
+  W = rect.width; H = rect.height;
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = W * DPR; canvas.height = H * DPR;
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  drawLayout();
+}
+window.addEventListener('resize', () => { if (state.step === 4) resizeCanvas(); });
+
+function drawLayout() {
+  ctx.fillStyle = ddCV('--cv-bg');
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = ddCV('--cv-grid'); ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += GRID) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+  for (let y = 0; y < H; y += GRID) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+  state.layout.items.forEach(drawItem);
+  if (state.layout.wallStart) {
+    ctx.fillStyle = '#C8A951';
+    ctx.beginPath(); ctx.arc(state.layout.wallStart.x, state.layout.wallStart.y, 5, 0, Math.PI * 2); ctx.fill();
+  }
+  // Selection overlay renders last so handles sit above everything
+  if (state.layout.selected) {
+    const sel = state.layout.items.find(x => x.id === state.layout.selected.id);
+    if (sel) drawSelection(sel);
+  }
+}
+function drawItem(it) {
+  if (it.type === 'wall') { drawSeg(it, ddCV('--cv-wall'), 5, ''); }
+  else if (it.type === 'door') {
+    drawSeg(it, '#7A88A6', 3, 'DOOR', [4, 3]);
+    const dx = it.x2 - it.x1, dy = it.y2 - it.y1, L = Math.hypot(dx, dy);
+    if (L > 5) {
+      const a = Math.atan2(dy, dx);
+      ctx.strokeStyle = '#C8A951'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(it.x1, it.y1, L, a, a - Math.PI/2, true); ctx.stroke();
+    }
+  }
+  else if (it.type === 'window') {
+    const dx = it.x2 - it.x1, dy = it.y2 - it.y1, L = Math.hypot(dx, dy);
+    if (L === 0) return;
+    const nx = -dy/L*3, ny = dx/L*3;
+    ctx.strokeStyle = '#4A9EFF'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(it.x1+nx, it.y1+ny); ctx.lineTo(it.x2+nx, it.y2+ny);
+    ctx.moveTo(it.x1-nx, it.y1-ny); ctx.lineTo(it.x2-nx, it.y2-ny);
+    ctx.stroke();
+    drawLenLabel(it.x1, it.y1, it.x2, it.y2, 'WIN');
+  }
+  else if (it.type === 'device') { drawDevice(it); }
+}
+function drawSeg(it, color, w, prefix, dash) {
+  ctx.strokeStyle = color; ctx.lineWidth = w; ctx.lineCap = 'round';
+  if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); ctx.moveTo(it.x1, it.y1); ctx.lineTo(it.x2, it.y2); ctx.stroke();
+  ctx.setLineDash([]);
+  drawLenLabel(it.x1, it.y1, it.x2, it.y2, prefix);
+}
+function drawLenLabel(x1, y1, x2, y2, prefix) {
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy);
+  if (L < 30) return;
+  const feet = (L / GRID) * state.layout.scale;
+  const label = (prefix ? prefix + ' · ' : '') + feet.toFixed(1) + "'";
+  const mx = (x1+x2)/2, my = (y1+y2)/2;
+  const a = Math.atan2(dy, dx);
+  const lx = mx + Math.cos(a - Math.PI/2) * 12;
+  const ly = my + Math.sin(a - Math.PI/2) * 12;
+  ctx.save(); ctx.translate(lx, ly);
+  let ra = a; if (ra > Math.PI/2 || ra < -Math.PI/2) ra += Math.PI;
+  ctx.rotate(ra);
+  ctx.font = 'bold 9px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const tw = ctx.measureText(label).width + 6;
+  ctx.fillStyle = 'rgba(15,24,38,0.9)'; ctx.fillRect(-tw/2, -7, tw, 14);
+  ctx.fillStyle = '#C8A951'; ctx.fillText(label, 0, 0);
+  ctx.restore();
+}
+function drawDevice(d) {
+  const el = ELEMENTS.find(e => e.id === d.kind);
+  const color = el ? el.color : '#fff';
+  ctx.save(); ctx.translate(d.x, d.y);
+  ctx.fillStyle = '#fff'; ctx.strokeStyle = '#0B1F3A'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(0, 0, 13, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = color;
+  ctx.beginPath(); ctx.arc(0, 0, 9, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#fff'; ctx.font = 'bold 9px Arial';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText((el?el.prefix:'?').slice(0,2), 0, 0);
+  ctx.restore();
+  ctx.font = 'bold 9px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  const tw = ctx.measureText(d.label || '').width + 6;
+  ctx.fillStyle = 'rgba(15,24,38,0.9)'; ctx.fillRect(d.x - tw/2, d.y + 16, tw, 12);
+  ctx.fillStyle = '#C8A951'; ctx.fillText(d.label || '', d.x, d.y + 18);
+}
+
+function snap(v) { return Math.round(v / (GRID / 2)) * (GRID / 2); }
+function getPt(evt) {
+  const r = canvas.getBoundingClientRect();
+  const t = evt.touches ? evt.touches[0] : evt;
+  return { x: snap(t.clientX - r.left), y: snap(t.clientY - r.top) };
+}
+let downPt = null;
+let lastTap = 0;
+let dragStarted = false;
+let dragMoved = false;
+let preDragSnapshot = null;
+
+canvas.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  const p = getPt(e);
+  downPt = p;
+  dragStarted = false;
+  dragMoved = false;
+
+  if (state.layout.tool === 'select') {
+    const hit = hitItem(p);
+    if (hit) {
+      preDragSnapshot = JSON.stringify(state.layout.items);
+      state.layout.selected = { id: hit.item.id, handle: hit.handle };
+      state.layout.drag = {
+        startX: p.x, startY: p.y,
+        origItem: JSON.parse(JSON.stringify(hit.item))
+      };
+      dragStarted = true;
+      try { canvas.setPointerCapture(e.pointerId); } catch(_) {}
+    } else {
+      state.layout.selected = null;
+      state.layout.drag = null;
+    }
+    drawLayout();
+    updateSelectionUI();
+  }
+});
+
+canvas.addEventListener('pointermove', e => {
+  if (!dragStarted || !state.layout.drag || !state.layout.selected) return;
+  e.preventDefault();
+  const p = getPt(e);
+  const drag = state.layout.drag;
+  const item = state.layout.items.find(x => x.id === state.layout.selected.id);
+  if (!item) return;
+  const dx = p.x - drag.startX;
+  const dy = p.y - drag.startY;
+  if (dx === 0 && dy === 0) return;
+  dragMoved = true;
+  const orig = drag.origItem;
+  if (item.type === 'device') {
+    item.x = snap(orig.x + dx);
+    item.y = snap(orig.y + dy);
+  } else if (state.layout.selected.handle === 'p1') {
+    // Anchor is p2 (fixed). Snap the moving p1 with angle snap.
+    const snapped = snapEndpoint({x: orig.x2, y: orig.y2}, orig.x1 + dx, orig.y1 + dy);
+    item.x1 = snapped.x; item.y1 = snapped.y;
+  } else if (state.layout.selected.handle === 'p2') {
+    // Anchor is p1 (fixed). Snap the moving p2 with angle snap.
+    const snapped = snapEndpoint({x: orig.x1, y: orig.y1}, orig.x2 + dx, orig.y2 + dy);
+    item.x2 = snapped.x; item.y2 = snapped.y;
+  } else {
+    // Body drag — pure translation, grid snap.
+    item.x1 = snap(orig.x1 + dx);
+    item.y1 = snap(orig.y1 + dy);
+    item.x2 = snap(orig.x2 + dx);
+    item.y2 = snap(orig.y2 + dy);
+  }
+  drawLayout();
+  syncSelFields();
+});
+
+canvas.addEventListener('pointerup', e => {
+  e.preventDefault();
+  const wasDragStarted = dragStarted;
+  const wasDragMoved = dragMoved;
+  dragStarted = false;
+  dragMoved = false;
+
+  if (state.layout.tool === 'select') {
+    if (wasDragStarted && wasDragMoved && preDragSnapshot) {
+      state.layout.history.push(preDragSnapshot);
+      if (state.layout.history.length > 25) state.layout.history.shift();
+    }
+    preDragSnapshot = null;
+    state.layout.drag = null;
+    downPt = null;
+    updateLayoutCount();
+    return;
+  }
+
+  // Non-select tools: existing tap-based behavior
+  if (!downPt) return;
+  const p = downPt; downPt = null;
+
+  // Double-tap ends wall chain
+  const now = Date.now();
+  if (now - lastTap < 300 && state.layout.wallStart) {
+    state.layout.wallStart = null;
+    drawLayout();
+    lastTap = now;
+    return;
+  }
+  lastTap = now;
+  handleLayoutTap(p);
+});
+
+function handleLayoutTap(p) {
+  const L = state.layout;
+  if (L.tool === 'erase') {
+    let best = -1, bd = 20;
+    L.items.forEach((it, i) => {
+      let d = Infinity;
+      if (it.type === 'device') d = Math.hypot(it.x - p.x, it.y - p.y);
+      else d = distSeg(p, {x:it.x1,y:it.y1}, {x:it.x2,y:it.y2});
+      if (d < bd) { bd = d; best = i; }
+    });
+    if (best >= 0) { pushLHist(); L.items.splice(best, 1); }
+    drawLayout(); updateLayoutCount();
+    return;
+  }
+  if (L.tool === 'element' && L.pendingEl) {
+    pushLHist();
+    const el = ELEMENTS.find(e => e.id === L.pendingEl);
+    const n = L.items.filter(i => i.type === 'device' && i.kind === L.pendingEl).length;
+    L.items.push({ type: 'device', kind: L.pendingEl, x: p.x, y: p.y,
+      label: el.prefix + '-' + String(n+1).padStart(2, '0'), id: L.nextId++ });
+    drawLayout(); updateLayoutCount();
+    return;
+  }
+  if (L.tool === 'wall' || L.tool === 'door' || L.tool === 'window') {
+    if (!L.wallStart) { L.wallStart = p; drawLayout(); return; }
+    if (Math.hypot(p.x - L.wallStart.x, p.y - L.wallStart.y) < 10) {
+      L.wallStart = null; drawLayout(); return;
+    }
+    pushLHist();
+    L.items.push({ type: L.tool, x1: L.wallStart.x, y1: L.wallStart.y, x2: p.x, y2: p.y, id: L.nextId++ });
+    L.wallStart = (L.tool === 'wall') ? p : null;
+    drawLayout(); updateLayoutCount();
+  }
+}
+function distSeg(p, a, b) {
+  const dx = b.x - a.x, dy = b.y - a.y;
+  if (dx === 0 && dy === 0) return Math.hypot(p.x - a.x, p.y - a.y);
+  const t = Math.max(0, Math.min(1, ((p.x-a.x)*dx + (p.y-a.y)*dy) / (dx*dx + dy*dy)));
+  return Math.hypot(p.x - (a.x + t*dx), p.y - (a.y + t*dy));
+}
+function setTool(t) {
+  state.layout.tool = t;
+  state.layout.wallStart = null;
+  state.layout.pendingEl = null;
+  if (t !== 'select') {
+    state.layout.selected = null;
+    state.layout.drag = null;
+  }
+  document.querySelectorAll('.layout-tool').forEach(el => el.classList.toggle('on', el.dataset.tool === t));
+  const hint = document.getElementById('selHint');
+  if (hint) hint.style.display = (t === 'select' && !state.layout.selected) ? 'block' : 'none';
+  drawLayout();
+  updateSelectionUI();
+}
+
+// ===== SELECT-MODE HELPERS =====
+function hitItem(p) {
+  // Iterate topmost-first so overlapping items pick the one drawn last.
+  for (let i = state.layout.items.length - 1; i >= 0; i--) {
+    const it = state.layout.items[i];
+    if (it.type === 'device') {
+      if (Math.hypot(it.x - p.x, it.y - p.y) < 18) return { item: it, handle: 'body' };
+    } else {
+      // Check endpoints first (tighter tolerance, priority)
+      if (Math.hypot(it.x1 - p.x, it.y1 - p.y) < 16) return { item: it, handle: 'p1' };
+      if (Math.hypot(it.x2 - p.x, it.y2 - p.y) < 16) return { item: it, handle: 'p2' };
+      if (distSeg(p, {x:it.x1,y:it.y1}, {x:it.x2,y:it.y2}) < 12) return { item: it, handle: 'body' };
+    }
+  }
+  return null;
+}
+
+function drawSelection(item) {
+  ctx.save();
+  if (item.type === 'device') {
+    ctx.strokeStyle = '#C8A951';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.arc(item.x, item.y, 22, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  } else {
+    // Highlight the segment
+    ctx.strokeStyle = '#C8A951';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(item.x1, item.y1);
+    ctx.lineTo(item.x2, item.y2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // Endpoint handles — big enough for touch
+    [{x:item.x1,y:item.y1,h:'p1'},{x:item.x2,y:item.y2,h:'p2'}].forEach(pt => {
+      const active = state.layout.selected && state.layout.selected.handle === pt.h;
+      ctx.fillStyle = active ? '#CC0000' : '#C8A951';
+      ctx.strokeStyle = '#0F1826';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, 9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    });
+  }
+  ctx.restore();
+}
+
+function updateSelectionUI() {
+  const chip = document.getElementById('selChip');
+  const hint = document.getElementById('selHint');
+  const row2 = document.getElementById('selRow2');
+  if (!chip || !hint) return;
+  const sel = state.layout.selected;
+  if (sel) {
+    const item = state.layout.items.find(x => x.id === sel.id);
+    if (item) {
+      let name;
+      if (item.type === 'device') name = item.label || 'DEVICE';
+      else name = item.type.toUpperCase();
+      document.getElementById('selChipText').textContent = 'Selected: ' + name;
+      chip.classList.add('on');
+      hint.style.display = 'none';
+      // Show length+angle fields only for lines
+      if (item.type !== 'device') {
+        row2.style.display = 'flex';
+        syncSelFields();
+      } else {
+        row2.style.display = 'none';
+      }
+      return;
+    }
+  }
+  chip.classList.remove('on');
+  if (row2) row2.style.display = 'none';
+  hint.style.display = (state.layout.tool === 'select') ? 'block' : 'none';
+}
+
+// Update the length+angle input values from the selected line's current geometry.
+// Called after selection and continuously during drag so numbers stay live.
+function syncSelFields() {
+  const sel = state.layout.selected;
+  if (!sel) return;
+  const item = state.layout.items.find(x => x.id === sel.id);
+  if (!item || item.type === 'device') return;
+  const dx = item.x2 - item.x1;
+  const dy = item.y2 - item.y1;
+  const feet = Math.hypot(dx, dy) / GRID * state.layout.scale;
+  let deg = Math.atan2(dy, dx) * 180 / Math.PI;
+  // Normalize to 0..360
+  if (deg < 0) deg += 360;
+  const lenEl = document.getElementById('selLen');
+  const angEl = document.getElementById('selAng');
+  if (lenEl && document.activeElement !== lenEl) lenEl.value = feet.toFixed(1);
+  if (angEl && document.activeElement !== angEl) angEl.value = deg.toFixed(0);
+}
+
+// Snap an endpoint being dragged: within 3° of a 15° increment, angle-lock
+// and use grid-snapped radial length. Outside tolerance, plain grid snap.
+function snapEndpoint(anchor, targetX, targetY) {
+  const rx = targetX - anchor.x;
+  const ry = targetY - anchor.y;
+  const rawLen = Math.hypot(rx, ry);
+  if (rawLen < 12) return { x: snap(targetX), y: snap(targetY) };
+  const currDeg = Math.atan2(ry, rx) * 180 / Math.PI;
+  const nearest = Math.round(currDeg / 15) * 15;
+  if (Math.abs(currDeg - nearest) < 3) {
+    const rad = nearest * Math.PI / 180;
+    const snapLen = Math.round(rawLen / (GRID / 2)) * (GRID / 2);
+    return {
+      x: anchor.x + Math.cos(rad) * snapLen,
+      y: anchor.y + Math.sin(rad) * snapLen,
+    };
+  }
+  return { x: snap(targetX), y: snap(targetY) };
+}
+
+// Apply a typed exact length to the selected line (anchors p1, moves p2).
+function applyLen() {
+  const sel = state.layout.selected;
+  if (!sel) return;
+  const item = state.layout.items.find(x => x.id === sel.id);
+  if (!item || item.type === 'device') return;
+  const newFt = parseFloat(document.getElementById('selLen').value);
+  if (isNaN(newFt) || newFt <= 0) return;
+  pushLHist();
+  const dx = item.x2 - item.x1;
+  const dy = item.y2 - item.y1;
+  const oldLen = Math.hypot(dx, dy);
+  if (oldLen < 0.01) return;  // avoid div by zero
+  const rad = Math.atan2(dy, dx);
+  const newLen = newFt * GRID / state.layout.scale;
+  item.x2 = item.x1 + Math.cos(rad) * newLen;
+  item.y2 = item.y1 + Math.sin(rad) * newLen;
+  drawLayout();
+  syncSelFields();
+  updateLayoutCount();
+}
+
+// Apply a typed exact angle to the selected line (anchors p1, rotates p2).
+function applyAng() {
+  const sel = state.layout.selected;
+  if (!sel) return;
+  const item = state.layout.items.find(x => x.id === sel.id);
+  if (!item || item.type === 'device') return;
+  const newDeg = parseFloat(document.getElementById('selAng').value);
+  if (isNaN(newDeg)) return;
+  pushLHist();
+  const dx = item.x2 - item.x1;
+  const dy = item.y2 - item.y1;
+  const len = Math.hypot(dx, dy);
+  if (len < 0.01) return;
+  const rad = newDeg * Math.PI / 180;
+  item.x2 = item.x1 + Math.cos(rad) * len;
+  item.y2 = item.y1 + Math.sin(rad) * len;
+  drawLayout();
+  syncSelFields();
+  updateLayoutCount();
+}
+
+function deleteSelected() {
+  if (!state.layout.selected) return;
+  pushLHist();
+  state.layout.items = state.layout.items.filter(x => x.id !== state.layout.selected.id);
+  state.layout.selected = null;
+  state.layout.drag = null;
+  drawLayout();
+  updateLayoutCount();
+  updateSelectionUI();
+}
+function setScale(v) {
+  const n = parseFloat(v);
+  if (!isNaN(n) && n > 0) { state.layout.scale = n; drawLayout(); }
+}
+function updateLayoutCount() {
+  const L = state.layout;
+  const w = L.items.filter(i => i.type === 'wall').length;
+  const d = L.items.filter(i => i.type === 'door').length;
+  const win = L.items.filter(i => i.type === 'window').length;
+  const dev = L.items.filter(i => i.type === 'device').length;
+  document.getElementById('layoutCount').textContent = `${w}w · ${d}d · ${win}win · ${dev}dev`;
+}
+function pushLHist() {
+  state.layout.history.push(JSON.stringify(state.layout.items));
+  if (state.layout.history.length > 25) state.layout.history.shift();
+}
+function lundo() {
+  if (state.layout.history.length === 0) return;
+  state.layout.items = JSON.parse(state.layout.history.pop());
+  state.layout.wallStart = null;
+  drawLayout(); updateLayoutCount();
+}
+
+// Palette
+function buildPalette() {
+  document.getElementById('pgrid').innerHTML = ELEMENTS.map(el =>
+    `<div class="pel" onclick="pickEl('${el.id}')">
+      <svg viewBox="0 0 32 32">
+        <circle cx="16" cy="16" r="12" fill="#fff" stroke="#0B1F3A" stroke-width="2"/>
+        <circle cx="16" cy="16" r="8" fill="${el.color}"/>
+        <text x="16" y="20" font-family="Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">${el.prefix.slice(0,2)}</text>
+      </svg>
+      <div class="pel-name">${el.name}</div>
+    </div>`).join('');
+}
+function openPalette() { document.getElementById('pmask').classList.add('on'); }
+function closePalette() { document.getElementById('pmask').classList.remove('on'); }
+function pickEl(id) {
+  state.layout.pendingEl = id;
+  state.layout.tool = 'element';
+  state.layout.wallStart = null;
+  document.querySelectorAll('.layout-tool').forEach(el => el.classList.toggle('on', el.dataset.tool === 'element'));
+  closePalette();
+}
+
+// ============ STEP 5: REVIEW ============
+function renderReview() {
+  captureCurrent();
+  try { ddRenderFlags(); } catch (e) {}
+  const host = document.getElementById('reviewHost');
+  const d = state.data, c = state.chips;
+  let html = '';
+
+  // Header
+  html += `<div class="review-sec">
+    <h4>SITE &amp; CONTACT</h4>
+    ${row('Sales Rep', d.f_rep_name)}
+    ${row('Mobile', d.f_rep_mobile)}
+    ${row('Date', d.f_date)}
+    ${row('Prospect', d.f_prospect)}
+    ${row('Site Contact', d.f_contact_name)}
+    ${row('Contact Phone', d.f_contact_phone)}
+    ${row('Email', d.f_email)}
+    ${row('Existing Member', c.member)}
+    ${row('Location Status', c.loc_type)}
+    ${row('Location Name', d.f_loc_name)}
+    ${row('Address', [d.f_address, d.f_city, d.f_state, d.f_zip].filter(Boolean).join(', '))}
+  </div>`;
+
+  // Types selected
+  html += `<div class="review-sec">
+    <h4>SYSTEMS IN SCOPE</h4>
+    ${row('Types', state.types.length ? state.types.map(t => TYPES.find(x=>x.id===t).name).join(', ') : '(none)')}
+  </div>`;
+
+  // Per-type details
+  state.types.forEach(tid => {
+    const t = TYPES.find(x => x.id === tid);
+    const q = QUESTIONS[tid];
+    let inner = '';
+    q.fields.forEach(f => {
+      let val = '';
+      if (f.kind === 'chip') val = c[f.id] || '';
+      else val = d['q_' + f.id] || '';
+      if (val) inner += row(f.label, val);
+    });
+    if (!inner) inner = `<div style="color:var(--t3);font-size:11px;padding:6px 0">(no answers captured)</div>`;
+    html += `<div class="review-sec"><h4>${t.icon} ${q.label.toUpperCase()}</h4>${inner}</div>`;
+  });
+
+  // Layout
+  const L = state.layout;
+  html += `<div class="review-sec">
+    <h4>LAYOUT SKETCH</h4>
+    ${row('Scale', '1 grid = ' + L.scale + ' ' + L.unit)}
+    ${row('Walls', L.items.filter(i=>i.type==='wall').length)}
+    ${row('Doors', L.items.filter(i=>i.type==='door').length)}
+    ${row('Windows', L.items.filter(i=>i.type==='window').length)}
+    ${row('Devices', L.items.filter(i=>i.type==='device').length)}
+  </div>`;
+
+  // Status + notes
+  html += `<div class="review-sec">
+    <h4>STATUS &amp; NOTES</h4>
+    ${row('Status', c.status)}
+    ${row('Proposal Provided', c.proposal)}
+    ${row('Field Lead Requested', c.fielead)}
+    ${row('Additional Services', d.f_addl)}
+    ${row('Job Scope Notes', d.f_scope)}
+  </div>`;
+
+  host.innerHTML = html;
+  document.getElementById('printTitle').textContent =
+    (d.f_prospect || 'Sales Quote Survey') + ' — ' + (d.f_date || new Date().toISOString().slice(0,10));
+}
+function row(label, val) {
+  if (val === undefined || val === null || val === '') return '';
+  return `<div class="review-row"><b>${escapeHtml(label)}</b><span>${escapeHtml(String(val))}</span></div>`;
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+
+// ============ PRINT / COPY ============
+function printOut() {
+  captureCurrent();
+  renderReview();
+  // Add the layout sketch as an image at the end of the print
+  const sketch = renderSketchImg();
+  // Insert into DOM temporarily for printing
+  const existing = document.getElementById('printSketchWrap');
+  if (existing) existing.remove();
+  if (sketch) {
+    const wrap = document.createElement('div');
+    wrap.id = 'printSketchWrap';
+    wrap.className = 'review-sec';
+    wrap.style.pageBreakBefore = 'always';
+    wrap.innerHTML = `<h4>LAYOUT SKETCH</h4><img src="${sketch}" style="width:100%;height:auto;border:1px solid #999">`;
+    document.getElementById('reviewHost').appendChild(wrap);
+  }
+  ddDoPrint();
+}
+function renderSketchImg() {
+  if (state.layout.items.length === 0) return null;
+  const off = document.createElement('canvas');
+  const w = 800, h = 500;
+  off.width = w; off.height = h;
+  const c = off.getContext('2d');
+  c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, w, h);
+  c.strokeStyle = '#EEE'; c.lineWidth = 1;
+  for (let x = 0; x < w; x += GRID) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x, h); c.stroke(); }
+  for (let y = 0; y < h; y += GRID) { c.beginPath(); c.moveTo(0, y); c.lineTo(w, y); c.stroke(); }
+  const items = state.layout.items;
+  items.forEach(it => {
+    if (it.type === 'wall') { c.strokeStyle = '#0B1F3A'; c.lineWidth = 5; c.lineCap = 'round';
+      c.beginPath(); c.moveTo(it.x1, it.y1); c.lineTo(it.x2, it.y2); c.stroke(); }
+    else if (it.type === 'door') { c.strokeStyle = '#888'; c.lineWidth = 3;
+      c.beginPath(); c.moveTo(it.x1, it.y1); c.lineTo(it.x2, it.y2); c.stroke(); }
+    else if (it.type === 'window') { c.strokeStyle = '#4A9EFF'; c.lineWidth = 2;
+      c.beginPath(); c.moveTo(it.x1, it.y1); c.lineTo(it.x2, it.y2); c.stroke(); }
+    else if (it.type === 'device') {
+      const el = ELEMENTS.find(e => e.id === it.kind);
+      c.save(); c.translate(it.x, it.y);
+      c.fillStyle = '#fff'; c.strokeStyle = '#0B1F3A'; c.lineWidth = 2;
+      c.beginPath(); c.arc(0, 0, 13, 0, Math.PI*2); c.fill(); c.stroke();
+      c.fillStyle = el ? el.color : '#000';
+      c.beginPath(); c.arc(0, 0, 9, 0, Math.PI*2); c.fill();
+      c.fillStyle = '#fff'; c.font = 'bold 9px Arial'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.fillText((el?el.prefix:'?').slice(0,2), 0, 0);
+      c.restore();
+      c.fillStyle = '#0B1F3A'; c.font = 'bold 10px Arial'; c.textAlign = 'center';
+      c.fillText(it.label || '', it.x, it.y + 26);
+    }
+  });
+  return off.toDataURL('image/png');
+}
+function copyPlain() {
+  captureCurrent();
+  const d = state.data, c = state.chips;
+  const lines = [];
+  lines.push('AAA COMMERCIAL SALES INTAKE');
+  lines.push('=============================');
+  lines.push('Rep: ' + (d.f_rep_name || '') + '  Mobile: ' + (d.f_rep_mobile || ''));
+  lines.push('Date: ' + (d.f_date || ''));
+  lines.push('Prospect: ' + (d.f_prospect || ''));
+  lines.push('Site Contact: ' + (d.f_contact_name || '') + '  Phone: ' + (d.f_contact_phone || ''));
+  lines.push('Email: ' + (d.f_email || ''));
+  lines.push('Address: ' + [d.f_address, d.f_city, d.f_state, d.f_zip].filter(Boolean).join(', '));
+  lines.push('Existing Member: ' + (c.member || ''));
+  lines.push('');
+  lines.push('SYSTEMS: ' + state.types.map(t => TYPES.find(x=>x.id===t).name).join(', '));
+  lines.push('');
+  state.types.forEach(tid => {
+    const t = TYPES.find(x => x.id === tid);
+    const q = QUESTIONS[tid];
+    lines.push('--- ' + q.label + ' ---');
+    q.fields.forEach(f => {
+      let val = (f.kind === 'chip') ? (c[f.id] || '') : (d['q_' + f.id] || '');
+      if (val) lines.push(f.label + ': ' + val);
+    });
+    lines.push('');
+  });
+  lines.push('Status: ' + (c.status || ''));
+  lines.push('Proposal Provided: ' + (c.proposal || ''));
+  lines.push('Field Lead Requested: ' + (c.fielead || ''));
+  lines.push('Additional Services: ' + (d.f_addl || ''));
+  lines.push('Job Scope Notes: ' + (d.f_scope || ''));
+  const text = lines.join('\n');
+  navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard')).catch(() => {
+    const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); document.body.removeChild(t); alert('Copied to clipboard');
+  });
+}
+
+// ============ SAVES ============
+function loadAllSaves() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY + '.saves') || '{}'); } catch(_) { return {}; }
+}
+function saveAllSaves(o) { try { localStorage.setItem(STORAGE_KEY + '.saves', JSON.stringify(o)); } catch(_) {} }
+function openSaves() {
+  captureCurrent();
+  const d = state.data;
+  document.getElementById('saveName').value = d.f_prospect || '';
+  renderSavedList();
+  document.getElementById('dmask').classList.add('on');
+}
+function closeSaves() { document.getElementById('dmask').classList.remove('on'); }
+function saveCurrent() {
+  captureCurrent();
+  const nm = document.getElementById('saveName').value.trim() || (state.data.f_prospect || 'Intake ' + new Date().toLocaleString());
+  const saves = loadAllSaves();
+  saves[nm] = {
+    data: state.data, chips: state.chips, types: state.types,
+    layout: state.layout, step: state.step, savedAt: Date.now(),
+  };
+  saveAllSaves(saves);
+  renderSavedList();
+  alert('Saved: ' + nm);
+}
+function loadIntake(nm) {
+  const s = loadAllSaves()[nm];
+  if (!s) return;
+  state.data = s.data || {};
+  state.chips = s.chips || {};
+  state.types = s.types || [];
+  state.layout = s.layout || state.layout;
+  state.layout.history = [];
+  state.layout.wallStart = null;
+  state.layout.selected = null;
+  state.layout.drag = null;
+  document.getElementById('scaleInput').value = state.layout.scale;
+  renderTypes();
+  goto(1);
+  setTimeout(restoreValues, 20);
+  closeSaves();
+}
+function deleteIntake(nm) {
+  if (!confirm('Delete "' + nm + '"?')) return;
+  const saves = loadAllSaves(); delete saves[nm]; saveAllSaves(saves);
+  renderSavedList();
+}
+function newIntake() {
+  if (!confirm('Clear current intake? Use SAVE first if you want to keep it.')) return;
+  state.data = {}; state.chips = {}; state.types = [];
+  state.layout = { items: [], scale: 5, unit: 'ft', tool: 'wall', pendingEl: null, wallStart: null, nextId: 1, history: [], selected: null, drag: null };
+  document.querySelectorAll('input,select,textarea').forEach(el => { if (el.id) el.value = ''; });
+  document.querySelectorAll('.chip.on').forEach(c => c.classList.remove('on'));
+  renderTypes();
+  goto(1);
+  closeSaves();
+}
+function renderSavedList() {
+  const saves = loadAllSaves();
+  const names = Object.keys(saves).sort((a, b) => (saves[b].savedAt || 0) - (saves[a].savedAt || 0));
+  const host = document.getElementById('savedList');
+  if (!names.length) {
+    host.innerHTML = '<div style="color:var(--t3);font-size:11px;padding:8px;text-align:center">No saved intakes yet</div>';
+    return;
+  }
+  host.innerHTML = names.map(n => {
+    const s = saves[n];
+    const date = s.savedAt ? new Date(s.savedAt).toLocaleDateString() : '';
+    return `<div class="saved-item">
+      <span>${escapeHtml(n)}<small>${date}</small></span>
+      <button onclick="loadIntake('${escapeAttr(n)}')">OPEN</button>
+      <button style="background:var(--red);color:#fff" onclick="deleteIntake('${escapeAttr(n)}')">×</button>
+    </div>`;
+  }).join('');
+}
+function escapeAttr(s) { return String(s).replace(/'/g, "\\'").replace(/"/g, '\\"'); }
+
+// ============ BOOT ============
+function boot() {
+  // Init date
+  document.getElementById('f_date').value = new Date().toISOString().slice(0, 10);
+  buildPalette();
+  renderTypes();
+  goto(1);
+  document.getElementById('btnPrev').disabled = true;
+}
+
+// Expose to onclick
+Object.assign(window, {
+  goto, next, prev, chip, toggleType, stash,
+  setTool, setScale, openPalette, closePalette, pickEl, lundo,
+  deleteSelected, applyLen, applyAng,
+  printOut, copyPlain,
+  openSaves, closeSaves, saveCurrent, loadIntake, deleteIntake, newIntake,
+});
+
+
+// ============ ADDED: theme, canvas vars, scope flags ============
+function ddCV(name) {
+  try { return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#FFFFFF'; }
+  catch (e) { return '#FFFFFF'; }
+}
+function ddApplyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  var b = document.getElementById('ddThemeBtn');
+  if (b) b.textContent = (t === 'dark') ? 'LIGHT' : 'DARK';
+  try { localStorage.setItem('aaa.intake.theme', t); } catch (e) {}
+  try { if (typeof drawLayout === 'function' && typeof ctx !== 'undefined' && ctx) drawLayout(); } catch (e) {}
+}
+function ddTheme() {
+  ddApplyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+(function () {
+  var t = 'light';
+  try { var v = localStorage.getItem('aaa.intake.theme'); if (v === 'dark' || v === 'light') t = v; } catch (e) {}
+  ddApplyTheme(t);
+})();
+
+function ddNum(v) { var n = parseInt(String(v == null ? '' : v).replace(/[^0-9]/g, ''), 10); return isNaN(n) ? 0 : n; }
+function ddDeviceCount(kinds) {
+  var n = 0;
+  try {
+    state.layout.items.forEach(function (it) {
+      if (it.type === 'device' && kinds.indexOf(it.kind) >= 0) n++;
+    });
+  } catch (e) {}
+  return n;
+}
+function ddFlags() {
+  var d = state.data || {}, c = state.chips || {}, t = state.types || [];
+  var sq = Math.max(ddNum(d.int_sqft), ddNum(d.fir_sqft), ddNum(d.ins_sqft));
+  var camsDrawn = ddDeviceCount(['camera', 'ptz']);
+  var cams = Math.max(ddNum(d.vid_count), camsDrawn);
+  var hasAccess = t.indexOf('access') >= 0 || ddNum(d.acc_doors) > 0 || ddDeviceCount(['reader']) > 0;
+  var hasFire = t.indexOf('fire') >= 0 || t.indexOf('inspection') >= 0;
+  var hasGates = t.indexOf('gates') >= 0;
+
+  return [
+    { k: 'sqft', hit: sq > 3000, title: 'Square footage cap',
+      on: 'Site is ' + sq.toLocaleString() + ' sq ft — over the 3,000 sq ft retail commercial cap. Escalate to custom design before you quote anything.',
+      off: sq ? ('Site is ' + sq.toLocaleString() + ' sq ft — inside the 3,000 sq ft cap.') : 'No square footage captured yet.' },
+
+    { k: 'cams', hit: cams >= 4, title: 'Camera design review',
+      on: cams + ' cameras in scope (' + camsDrawn + ' sketched) — four or more triggers design review. Do not quote video until review clears.',
+      off: cams + ' camera' + (cams === 1 ? '' : 's') + ' in scope — under the design review trigger.' },
+
+    { k: 'access', hit: hasAccess, title: 'Access control custom form',
+      on: 'Access control is in scope. The custom scope form is required — no verbal scoping, no exceptions. Egress and fire-release arrangements are not designed in the field.',
+      off: 'No access control in scope.' },
+
+    { k: 'fire', hit: hasFire, title: 'Fire and life safety routing',
+      on: 'Fire or inspection scope is selected. Route to the fire team. Capture the AHJ and Fire Marshal contact in Step 3 and do not price, promise, or interpret a code requirement on site. The AHJ has final say.',
+      off: 'No fire or inspection scope selected.' },
+
+    { k: 'ul', hit: (d.int_ul === 'Yes'), title: 'UL certificate requirement',
+      on: 'A UL certificate was requested. Confirm with the monitoring centre before it appears in any proposal — the requirement changes the install, not just the paperwork.',
+      off: 'No UL certificate requirement captured.' },
+
+    { k: 'gates', hit: hasGates, title: 'Gate safety devices (UL 325)',
+      on: 'Gate scope is selected. UL 325 safety devices are a code matter and an AHJ matter, not a line item you decide on site. Confirm the requirement before quoting, and cite the standard, edition year and section when you do.',
+      off: 'No gate scope selected.' },
+
+    { k: 'multi', hit: (d.acc_multi === 'Yes'), title: 'Multi-tenant access',
+      on: 'Multi-tenant or per-suite access is in scope. Landlord authority and per-suite billing are a different approval path — get your Territory Manager in before you scope it.',
+      off: 'Single tenant.' },
+
+    { k: 'member', hit: (c.member === 'yes'), title: 'Existing member — data handling',
+      on: 'This record now contains member identity on this device. Get it into the CRM and clear it off the device the same day. Nothing about a member sits in a browser overnight.',
+      off: 'Prospect is not an existing member.' },
+
+    { k: 'price', hit: false, always: true, title: 'Price authority',
+      on: 'Quote only from an approved price authority. Component roll-ups are not sell prices. If you cannot source a number, you do not say a number.', off: '' },
+
+    { k: 'route', hit: false, always: true, title: 'What you never answer on site',
+      on: 'Licensing routes to Compliance. Contract language routes to legal review. Anything that reads as a permit, monitoring, or false-alarm ordinance deviation gets flagged the same day, mid-job if necessary.', off: '' }
+  ];
+}
+function ddEsc(x) {
+  return String(x == null ? '' : x).replace(/[&<>"']/g, function (ch) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch];
+  });
+}
+function ddRenderFlags() {
+  var host = document.getElementById('ddFlagsHost');
+  if (!host) return;
+  var flags = ddFlags();
+  var hits = flags.filter(function (f) { return f.hit; });
+  var missing = hits.filter(function (f) {
+    return !(state.data['f_flagowner_' + f.k] && state.data['f_flagdue_' + f.k]);
+  });
+
+  var html = '<div class="sec"><div class="sec-hdr"><span class="badge">SCOPE</span>' +
+    '<h3>Scope Flags</h3></div>';
+
+  if (hits.length) {
+    html += '<div class="notice red"><span class="nh">' + hits.length + ' escalation' +
+      (hits.length > 1 ? 's' : '') + ' on this site</span>' +
+      'Say every one of them out loud before you leave. A scope flag the prospect hears on the walk is a ' +
+      'conversation; one they find out about later is a broken promise.' +
+      (missing.length ? ' <b>' + missing.length + ' still has no owner and no date — it will print as UNASSIGNED.</b>' : '') +
+      '</div>';
+  } else {
+    html += '<div class="notice"><span class="nh">No escalations</span>' +
+      'Nothing here needs escalating. Price still comes from the price authority, never from memory.</div>';
+  }
+
+  flags.forEach(function (f) {
+    var cls = f.always ? 'always' : (f.hit ? 'hit' : 'clear');
+    var tag = f.always ? 'Always' : (f.hit ? 'Escalate' : 'Clear');
+    html += '<div class="flagcard ' + cls + '">' +
+      '<span class="flagtag ' + cls + '">' + tag + '</span>' +
+      '<h5>' + ddEsc(f.title) + '</h5>' +
+      '<p>' + ddEsc(f.hit || f.always ? f.on : f.off) + '</p>';
+    if (f.hit) {
+      var o = state.data['f_flagowner_' + f.k] || '';
+      var dd = state.data['f_flagdue_' + f.k] || '';
+      html += '<div class="flagown">' +
+        '<div><label>Follow-up owner</label><input type="text" id="f_flagowner_' + f.k + '"' +
+        ' class="' + (o ? '' : 'missing') + '" value="' + ddEsc(o) + '" placeholder="Role or DLR #"></div>' +
+        '<div><label>Due date</label><input type="date" id="f_flagdue_' + f.k + '"' +
+        ' class="' + (dd ? '' : 'missing') + '" value="' + ddEsc(dd) + '"></div></div>';
+      if (!o || !dd) {
+        html += '<p style="margin-top:6px;color:var(--red);font-weight:700">' +
+          'UNASSIGNED — this prints on the handoff sheet exactly like that.</p>';
+      }
+    }
+    html += '</div>';
+  });
+
+  html += '</div>';
+  host.innerHTML = html;
+}
+window.ddTheme = ddTheme;
+window.ddRenderFlags = ddRenderFlags;
+
+
+// ============ ADDED: sandbox-proof print / handoff sheet ============
+// window.print() is blocked inside a hosted sandbox. Build a standalone
+// document instead, and give the rep three ways out: print it, open it,
+// or download it. One of the three always works.
+
+function ddFramed() {
+  try { return window.self !== window.top; } catch (e) { return true; }
+}
+
+var DD_SHEET_CSS = "\
+*{box-sizing:border-box}\
+body{margin:0;padding:24px;background:#fff;color:#000;font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12px;line-height:1.5}\
+.print-hdr{display:block;text-align:center;padding:0 0 14px;border-bottom:3px solid #C8A951;margin-bottom:18px}\
+.print-hdr .prb{color:#8A7223;font-size:10px;letter-spacing:4px;font-weight:700}\
+.print-hdr h1{color:#0B1F3A;margin:6px 0 0;font-family:Cambria,Georgia,serif;font-size:22px}\
+h1,h2,h3,h4,h5{font-family:Cambria,Georgia,serif;color:#0B1F3A;margin:0 0 6px}\
+h2{font-size:10px;letter-spacing:2px;color:#777;font-family:Calibri,Arial,sans-serif}\
+h1{font-size:18px}h3{font-size:13px}h4{font-size:11px;letter-spacing:1.5px}\
+.step{page-break-before:always;padding-top:4px}\
+.step:first-of-type{page-break-before:avoid}\
+.sec{border:1px solid #bbb;border-radius:5px;padding:11px;margin:0 0 12px;page-break-inside:avoid}\
+.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px;border-bottom:1px solid #ddd;padding-bottom:5px}\
+.badge{font-size:8px;letter-spacing:1.5px;font-weight:700;border:1px solid #888;border-radius:3px;padding:2px 6px;color:#444}\
+.fld{margin:0 0 7px}\
+.fld label{display:block;font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:#666;font-weight:700;margin-bottom:2px}\
+.ddval{display:block;border-bottom:1px solid #ddd;padding:3px 0;min-height:16px;color:#000;white-space:pre-wrap}\
+.ddval.empty{color:#aaa}\
+.grid2,.grid3{display:grid;gap:0 12px}.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr 1fr}\
+.review-sec{border:1px solid #bbb;border-radius:5px;padding:11px;margin:0 0 12px;page-break-inside:avoid}\
+.review-row{display:flex;gap:10px;padding:3px 0;border-bottom:1px dotted #ddd;font-size:11.5px}\
+.review-row b{min-width:150px;color:#555;font-weight:700}\
+.notice{border-left:4px solid #8A7223;padding:9px 11px;margin:0 0 12px;background:#fafafa;font-size:11px;page-break-inside:avoid}\
+.notice.red{border-left-color:#CC0000}\
+.notice .nh{display:block;font-size:9px;letter-spacing:2px;font-weight:700;text-transform:uppercase;margin-bottom:3px;color:#000}\
+.say{display:block;font-weight:700;font-size:13px;margin:5px 0}\
+.flagcard{border:1px solid #bbb;border-left:5px solid #888;border-radius:0 5px 5px 0;padding:9px 11px;margin:0 0 8px;page-break-inside:avoid}\
+.flagcard.hit{border-left-color:#CC0000}.flagcard.clear{border-left-color:#0A6B3D}.flagcard.always{border-left-color:#8A7223}\
+.flagcard h5{font-size:11.5px;margin:0 0 2px}.flagcard p{margin:0;font-size:11px;color:#333}\
+.flagtag{float:right;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:1px solid #999;border-radius:99px;padding:1px 7px;color:#555}\
+.flagtag.hit{border-color:#CC0000;color:#CC0000}\
+.flagown{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:7px}\
+.flagown label{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#666;font-weight:700}\
+.type-card{border:1px solid #bbb;border-radius:4px;padding:7px 10px;margin-bottom:5px;font-size:11.5px;page-break-inside:avoid}\
+.t-icon{display:none}.t-name{font-weight:700;color:#0B1F3A}.t-sub{font-size:10px;color:#555}\
+img{max-width:100%;height:auto;border:1px solid #999}\
+.ddfoot{margin-top:18px;padding-top:10px;border-top:1px solid #ccc;font-size:9.5px;color:#444;line-height:1.5}\
+@media print{body{padding:0}.ddbar{display:none!important}}\
+.ddbar{position:sticky;top:0;background:#0B1F3A;color:#fff;padding:10px 12px;margin:-24px -24px 18px;\
+display:flex;gap:8px;align-items:center;font-size:11px;letter-spacing:1px}\
+.ddbar button{background:#C8A951;border:0;color:#0B1F3A;font-weight:700;padding:8px 14px;border-radius:5px;\
+font-size:11px;letter-spacing:1px;cursor:pointer;font-family:inherit}\
+";
+
+function ddTextify(root) {
+  // chips -> the selected value as text
+  root.querySelectorAll('.chips').forEach(function (grp) {
+    var on = grp.querySelector('.chip.on');
+    var span = document.createElement('span');
+    span.className = 'ddval' + (on ? '' : ' empty');
+    span.textContent = on ? on.textContent.trim() : '\u2014';
+    grp.parentNode.replaceChild(span, grp);
+  });
+  // inputs / textareas / selects -> their values as text
+  root.querySelectorAll('input, textarea, select').forEach(function (el) {
+    var v = '';
+    if (el.tagName === 'SELECT') { v = el.options[el.selectedIndex] ? el.options[el.selectedIndex].text : ''; }
+    else { v = el.value || ''; }
+    if (el.type === 'checkbox' || el.type === 'radio') { v = el.checked ? 'Yes' : 'No'; }
+    var span = document.createElement('span');
+    span.className = 'ddval' + (v ? '' : ' empty');
+    span.textContent = v || '\u2014';
+    if (el.parentNode) el.parentNode.replaceChild(span, el);
+  });
+  // controls and screen-only furniture
+  root.querySelectorAll('button, .no-print, .layout-tools, .layout-scale, .sel-chip, .sel-hint, canvas')
+      .forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
+  // unselected quote types drop out; selected ones read as a plain list
+  root.querySelectorAll('.type-card').forEach(function (el) {
+    if (!el.classList.contains('on')) { if (el.parentNode) el.parentNode.removeChild(el); }
+    else { var c = el.querySelector('.t-check'); if (c) c.textContent = ''; }
+  });
+  return root;
+}
+
+function ddSheetHTML() {
+  var content = document.querySelector('.content');
+  if (!content) return '';
+  var clone = content.cloneNode(true);
+  ddTextify(clone);
+  // every step prints, not just the one on screen
+  clone.querySelectorAll('.step').forEach(function (el) { el.classList.add('on'); el.style.display = 'block'; });
+  var hdr = clone.querySelector('.print-hdr');
+  if (hdr) hdr.style.display = 'block';
+
+  var who = (state.data.f_prospect || 'Sales Quote Survey');
+  var when = (state.data.f_date || new Date().toISOString().slice(0, 10));
+
+  var bar = '<div class="ddbar"><span>HANDOFF SHEET</span>' +
+            '<button onclick="window.print()">PRINT / SAVE AS PDF</button></div>';
+
+  var foot = '<div class="ddfoot">' +
+    'AAA Smart Business Security &middot; Commercial Sales Intake. ' +
+    'Any escalation above reading UNASSIGNED has no owner and no due date and is not closed. ' +
+    'Fire and life safety scoping routes to the fire team. Licensing routes to Compliance. ' +
+    'Contract language routes to legal review. Where a code or ordinance is referenced, the AHJ has final say. ' +
+    'Prices quoted from an approved price authority only.</div>';
+
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<title>' + ddEsc(who) + ' \u2014 ' + ddEsc(when) + '</title>' +
+    '<style>' + DD_SHEET_CSS + '</style></head><body>' +
+    bar + clone.innerHTML + foot + '</body></html>';
+}
+
+function ddSheetName() {
+  var who = (state.data.f_prospect || 'intake').replace(/[^A-Za-z0-9 ]+/g, '').trim() || 'intake';
+  var when = (state.data.f_date || new Date().toISOString().slice(0, 10));
+  return 'AAA intake ' + who + ' ' + when + '.html';
+}
+
+function ddDoPrint() {
+  var html = ddSheetHTML();
+  if (!html) { alert('Nothing to print yet.'); return; }
+
+  // Not sandboxed: the normal browser print is still the best experience.
+  if (!ddFramed()) {
+    try { window.print(); return; } catch (e) {}
+  }
+
+  // Sandboxed: escape to a real window so the print dialog can open.
+  try {
+    var w = window.open('', '_blank');
+    if (w && w.document) {
+      w.document.open();
+      w.document.write(html);
+      w.document.close();
+      return;
+    }
+  } catch (e) {}
+
+  // Popup blocked: hand over a file instead.
+  ddDownloadSheet(true);
+}
+
+function ddDownloadSheet(quiet) {
+  captureCurrent();
+  renderReview();
+  var html = ddSheetHTML();
+  if (!html) { alert('Nothing to save yet.'); return; }
+  var name = ddSheetName();
+  try {
+    var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = name; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    if (quiet) {
+      alert('Printing is blocked inside this view, so the handoff sheet downloaded instead.\n\n' +
+            'Open ' + name + ' and print from there, or share it straight to the office.');
+    }
+    return;
+  } catch (e) {}
+  // Last resort: show it in a new window for manual save.
+  try {
+    var w = window.open('', '_blank');
+    if (w && w.document) { w.document.open(); w.document.write(html); w.document.close(); return; }
+  } catch (e2) {}
+  alert('Could not open or download the sheet on this device. Use COPY AS TEXT and paste it into an email.');
+}
+
+window.ddDoPrint = ddDoPrint;
+window.ddDownloadSheet = ddDownloadSheet;
+
+</script>
+<script>
+
+(function(){
+  var SALT="DDGATE:intake:v1";
+  var ROLES=[{"r": "Dealer", "h": "8e0277b558457be23bd1e79496a0fa53c00be351eae135bdff9d9e72db5447ae"}, {"r": "Rep", "h": "201e2e57df5a2f68d27d804fb767d47e30e62a4e52a6c936fa143c3512c0d41b"}, {"r": "Manager", "h": "3de06a9c7baa7d0ea9605c13b010ab8338bd39fcc6d51305b957fa70bba202cc"}];
+  var KEY="dd.gate."+SALT;
+  var HOURS=12;
+  var MAXTRY=5;
+  
+function ddSha256(ascii){
+  function rr(v,a){return (v>>>a)|(v<<(32-a));}
+  var mm=Math.pow,mx=mm(2,32),i,j,r=[],hs=[],k=[],p=2,W=8*8,res="";
+  var w=[],u=unescape(encodeURIComponent(ascii)),l=u.length*8,b=[];
+  for(i=0;i<u.length;i++){b[i>>2]|=u.charCodeAt(i)<<((3-i%4)*8);}
+  b[l>>5]|=0x80<<(24-l%32); b[((l+64>>9)<<4)+15]=l;
+  var H=[1779033703,3144134277,1013904242,2773480762,1359893119,2600822924,528734635,1541459225];
+  var K=[1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,
+  3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,
+  4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,
+  2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,
+  1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,
+  3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,
+  1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,
+  3204031479,3329325298];
+  for(i=0;i<b.length;i+=16){
+    var a=H[0],bb=H[1],c=H[2],d=H[3],e=H[4],f=H[5],g=H[6],h=H[7],t1,t2;
+    for(j=0;j<64;j++){
+      if(j<16){w[j]=b[i+j]|0;}
+      else{
+        var g0=w[j-15],g1=w[j-2];
+        var s0=(rr(g0,7)^rr(g0,18)^(g0>>>3));
+        var s1=(rr(g1,17)^rr(g1,19)^(g1>>>10));
+        w[j]=(w[j-16]+s0+w[j-7]+s1)|0;
+      }
+      var S1=(rr(e,6)^rr(e,11)^rr(e,25));
+      var ch=((e&f)^((~e)&g));
+      t1=(h+S1+ch+K[j]+w[j])|0;
+      var S0=(rr(a,2)^rr(a,13)^rr(a,22));
+      var mj=((a&bb)^(a&c)^(bb&c));
+      t2=(S0+mj)|0;
+      h=g;g=f;f=e;e=(d+t1)|0;d=c;c=bb;bb=a;a=(t1+t2)|0;
+    }
+    H[0]=(H[0]+a)|0;H[1]=(H[1]+bb)|0;H[2]=(H[2]+c)|0;H[3]=(H[3]+d)|0;
+    H[4]=(H[4]+e)|0;H[5]=(H[5]+f)|0;H[6]=(H[6]+g)|0;H[7]=(H[7]+h)|0;
+  }
+  for(i=0;i<8;i++){ var v=H[i]>>>0; res+=("00000000"+v.toString(16)).slice(-8); }
+  return res;
+}
+
+  function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  function lsDel(k){try{localStorage.removeItem(k);}catch(e){}}
+
+  var gate=document.getElementById("ddGate");
+  var inp=document.getElementById("ddGateCode");
+  var btn=document.getElementById("ddGateBtn");
+  var msg=document.getElementById("ddGateMsg");
+  var tries=0, cooling=false;
+
+  function open(role){
+    window.DD_GATE_ROLE=role||"";
+    if(gate) gate.classList.add("hidden");
+    try{ var ap=document.getElementById("app"); if(ap&&!ap.classList.contains("on")){ ap.classList.add("on"); boot(); } }catch(e){}
+    document.documentElement.style.overflow="";
+    try{ document.dispatchEvent(new CustomEvent("ddgate:open",{detail:{role:role}})); }catch(e){}
+  }
+  function stored(){
+    var raw=lsGet(KEY); if(!raw) return null;
+    try{
+      var o=JSON.parse(raw);
+      if(!o||!o.t) return null;
+      if(Date.now()-o.t > HOURS*3600*1000){ lsDel(KEY); return null; }
+      return o;
+    }catch(e){ return null; }
+  }
+  var s=stored();
+  if(s){ open(s.role); }
+  else { document.documentElement.style.overflow="hidden"; if(inp) setTimeout(function(){ try{inp.focus();}catch(e){} },120); }
+
+  function cooldown(secs){
+    cooling=true; btn.disabled=true;
+    var left=secs;
+    msg.className="ddg-msg";
+    var iv=setInterval(function(){
+      msg.textContent="Too many attempts. Try again in "+left+"s.";
+      left--;
+      if(left<0){ clearInterval(iv); cooling=false; btn.disabled=false; tries=0;
+        msg.textContent=""; }
+    },1000);
+    msg.textContent="Too many attempts. Try again in "+left+"s.";
+  }
+
+  function submit(){
+    if(cooling) return;
+    var code=(inp.value||"").trim().toLowerCase();
+    if(!code){ msg.className="ddg-msg"; msg.textContent="Enter your code."; return; }
+    var h=ddSha256(SALT+":"+code);
+    var role=null;
+    for(var i=0;i<ROLES.length;i++){ if(ROLES[i].h===h){ role=ROLES[i].r; break; } }
+    if(role){
+      msg.className="ddg-msg ok"; msg.textContent="Welcome in.";
+      lsSet(KEY,JSON.stringify({t:Date.now(),role:role}));
+      inp.value="";
+      setTimeout(function(){ open(role); },350);
+      return;
+    }
+    tries++;
+    inp.value="";
+    if(tries>=MAXTRY){ cooldown(60); return; }
+    msg.className="ddg-msg";
+    msg.textContent="That code is not recognised. "+(MAXTRY-tries)+" attempt"+((MAXTRY-tries)===1?"":"s")+" left.";
+  }
+  if(btn) btn.addEventListener("click",submit);
+  if(inp) inp.addEventListener("keydown",function(e){ if(e.key==="Enter") submit(); });
+})();
+
+</script>
+</body>
+</html>
