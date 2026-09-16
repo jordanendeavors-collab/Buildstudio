@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20160%20160%22%20role%3D%22img%22%20aria-label%3D%22DanDDee%22%3E%3Ctitle%3EDanDDee%3C%2Ftitle%3E%3Cline%20x1%3D%2295.00%22%20y1%3D%2280.00%22%20x2%3D%22130.00%22%20y2%3D%2280.00%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%28130.00%2080.00%29%20rotate%2890.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2292.99%22%20y1%3D%2287.50%22%20x2%3D%22123.30%22%20y2%3D%22105.00%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%28123.30%20105.00%29%20rotate%28120.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2287.50%22%20y1%3D%2292.99%22%20x2%3D%22105.00%22%20y2%3D%22123.30%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%28105.00%20123.30%29%20rotate%28150.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2280.00%22%20y1%3D%2295.00%22%20x2%3D%2280.00%22%20y2%3D%22130.00%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%2880.00%20130.00%29%20rotate%28180.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2272.50%22%20y1%3D%2292.99%22%20x2%3D%2255.00%22%20y2%3D%22123.30%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%2855.00%20123.30%29%20rotate%28210.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2267.01%22%20y1%3D%2287.50%22%20x2%3D%2236.70%22%20y2%3D%22105.00%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%2836.70%20105.00%29%20rotate%28240.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2265.00%22%20y1%3D%2280.00%22%20x2%3D%2230.00%22%20y2%3D%2280.00%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%2830.00%2080.00%29%20rotate%28270.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2267.01%22%20y1%3D%2272.50%22%20x2%3D%2236.70%22%20y2%3D%2255.00%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%2836.70%2055.00%29%20rotate%28300.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2272.50%22%20y1%3D%2267.01%22%20x2%3D%2255.00%22%20y2%3D%2236.70%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%2855.00%2036.70%29%20rotate%28330.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2280.00%22%20y1%3D%2265.00%22%20x2%3D%2280.00%22%20y2%3D%2230.00%22%20stroke%3D%22%23C9A648%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%3Cg%20transform%3D%22translate%2880.00%2030.00%29%20rotate%28360.00%29%20scale%280.85%29%22%3E%3Cpath%20d%3D%22M0%200%20c%20-7.6%20-8.6%20-11.2%20-13.6%20-11.2%20-19.4%20a11.2%2011.2%200%200%201%2022.4%200%20c%200%205.8%20-3.6%2010.8%20-11.2%2019.4%20z%22%20fill%3D%22%231F3864%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-20%22%20r%3D%224.2%22%20fill%3D%22%23ffffff%22%20opacity%3D%220.92%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2280.00%22%20cy%3D%2280.00%22%20r%3D%2213%22%20fill%3D%22%23C9A648%22%2F%3E%3C%2Fsvg%3E">
+<title>AAA Commercial Sales Intake</title>
+<style>
+:root{
+  --navy:#0B1F3A; --gold:#C8A951; --red:#CC0000;
+  --bg:#F4F2EC; --panel:#FFFFFF; --panel2:#EFEDE6; --ink:#16233D; --muted:#5D6577; --line:#D9D3C4;
+  --ok:#177245; --warnbg:#FFF4D6; --warn:#8A6100;
+  --shadow:0 1px 2px rgba(22,35,61,.10),0 6px 18px rgba(22,35,61,.06);
+  --hdr:Cambria,Georgia,"Times New Roman",serif;
+  --body:Calibri,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B121C; --panel:#151F30; --panel2:#1D293D; --ink:#E8EAF0; --muted:#9AA5B8; --line:#2C3A52;
+  --gold:#D9BE6A; --red:#FF4646; --warnbg:#2A2005; --warn:#E6C169;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.35);}}
+:root[data-theme="dark"]{
+  --bg:#0B121C; --panel:#151F30; --panel2:#1D293D; --ink:#E8EAF0; --muted:#9AA5B8; --line:#2C3A52;
+  --gold:#D9BE6A; --red:#FF4646; --warnbg:#2A2005; --warn:#E6C169;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.35);}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5}
+h1,h2,h3,h4{font-family:var(--hdr);margin:0 0 .4em;line-height:1.22}
+h1{font-size:1.45rem}h2{font-size:1.2rem}h3{font-size:1.03rem}
+p{margin:0 0 .75em}
+.wrap{max-width:900px;margin:0 auto;padding:0 14px 110px}
+
+header.top{background:var(--navy);color:#fff;border-bottom:4px solid var(--red)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 14px;display:flex;gap:12px;align-items:center}
+.m{width:46px;height:46px;flex:0 0 46px}.m svg{width:46px;height:46px;display:block}
+.vbar{width:1px;align-self:stretch;background:rgba(201,166,72,.55)}
+.top h1{font-size:1.02rem;margin:0;color:#fff}
+.top .s{font-size:.72rem;letter-spacing:.9px;text-transform:uppercase;color:#C8A951}
+.tbtn{margin-left:auto;background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:8px;padding:8px 10px;font-size:.78rem;font-family:var(--body);cursor:pointer}
+
+.rail{background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.rail-in{max-width:900px;margin:0 auto;padding:8px 14px}
+.bar{height:8px;border-radius:99px;background:var(--panel2);overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--gold));width:0%;transition:width .35s}
+.railrow{display:flex;justify-content:space-between;font-size:.73rem;color:var(--muted);margin-top:5px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;font-size:.72rem;padding:5px 10px;border-radius:99px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);white-space:nowrap;cursor:pointer}
+.chip.now{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:700}
+.chip.done{border-color:var(--ok);color:var(--ok);font-weight:700}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0;box-shadow:var(--shadow)}
+.kicker{font-size:.69rem;letter-spacing:1.3px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:4px}
+.gold{height:3px;background:var(--gold);border-radius:2px;margin:10px 0 14px;width:62px}
+.note{background:var(--warnbg);border-left:4px solid var(--gold);padding:10px 12px;border-radius:0 8px 8px 0;font-size:.88rem;margin:10px 0}
+.danger{background:rgba(204,0,0,.08);border-left:4px solid var(--red);padding:10px 12px;border-radius:0 8px 8px 0;font-size:.88rem;margin:10px 0}
+.muted{color:var(--muted);font-size:.85rem}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.9rem}
+.kv:last-child{border-bottom:0}
+ul.tight{margin:0 0 .7em;padding-left:1.15em}ul.tight li{margin-bottom:.35em}
+
+label.f{display:block;margin:10px 0}
+label.f span{display:block;font-size:.78rem;color:var(--muted);margin-bottom:4px;font-weight:700;letter-spacing:.3px}
+input[type=text],input[type=number],input[type=date],select,textarea{
+  width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);
+  color:var(--ink);font-family:var(--body);font-size:16px}
+textarea{min-height:80px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
+.grid2{display:grid;grid-template-columns:1fr;gap:0 12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media(min-width:640px){.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr 1fr}}
+
+.btn{display:block;width:100%;padding:14px 16px;border-radius:11px;border:1px solid var(--navy);
+  background:var(--navy);color:#fff;font-family:var(--body);font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#16233D}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.red{background:var(--red);border-color:var(--red)}
+.btnrow{display:grid;grid-template-columns:1fr;gap:8px}
+@media(min-width:640px){.btnrow{grid-template-columns:1fr 1fr}}
+
+.qgrp{border:1px solid var(--line);border-radius:12px;background:var(--panel2);padding:12px;margin:12px 0}
+.qgrp h3{margin:0 0 4px;font-family:var(--body);font-size:.95rem;font-weight:700}
+.qgrp .why{font-size:.79rem;color:var(--muted);margin-bottom:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);margin-bottom:6px;cursor:pointer;font-size:.93rem}
+.opt input{margin:3px 0 0;width:18px;height:18px;flex:0 0 auto;accent-color:var(--gold)}
+.opt.sel{border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+.opt small{display:block;color:var(--muted);font-size:.78rem;margin-top:2px}
+
+/* sketch studio */
+.studio{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel2)}
+.palette{display:flex;gap:6px;overflow-x:auto;padding:9px;border-bottom:1px solid var(--line);scrollbar-width:none}
+.palette::-webkit-scrollbar{display:none}
+.pbtn{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--line);
+  background:var(--panel);border-radius:10px;padding:7px 9px;cursor:pointer;font-family:var(--body);color:var(--ink);font-size:.66rem;min-width:58px}
+.pbtn.on{border-color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold)}
+.pbtn svg{width:22px;height:22px;display:block}
+#sketch{display:block;width:100%;height:auto;touch-action:manipulation;background:var(--panel)}
+.studiobar{display:flex;gap:8px;padding:9px;border-top:1px solid var(--line);flex-wrap:wrap}
+.sbtn{flex:1 1 90px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:9px;font-size:.8rem;font-family:var(--body);cursor:pointer}
+.tally{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tchip{font-size:.74rem;border:1px solid var(--line);border-radius:99px;padding:4px 10px;background:var(--panel2)}
+.tchip b{color:var(--navy)}
+:root[data-theme="dark"] .tchip b,:root:not([data-theme="light"]) .tchip b{color:var(--gold)}
+
+.flag{border:1px solid var(--line);border-left-width:5px;border-radius:0 10px 10px 0;padding:12px;margin:10px 0;background:var(--panel2)}
+.flag.hit{border-left-color:var(--red)}
+.flag.clear{border-left-color:var(--ok)}
+.flag h3{margin:0 0 3px;font-family:var(--body);font-size:.95rem;font-weight:700}
+.pill{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);letter-spacing:.4px;text-transform:uppercase}
+.pill.hit{border-color:var(--red);color:var(--red)}
+.pill.clear{border-color:var(--ok);color:var(--ok)}
+.pill.gold{border-color:var(--gold);color:var(--warn)}
+
+.eqrow{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);margin-bottom:7px}
+.eqrow .ic{width:30px;height:30px;flex:0 0 30px}
+.eqrow .ic svg{width:30px;height:30px}
+.eqrow .t{flex:1}
+.eqrow .t b{display:block;font-size:.93rem}
+.eqrow .t span{font-size:.79rem;color:var(--muted)}
+.eqrow .n{font-family:var(--hdr);font-size:1.15rem;min-width:28px;text-align:right}
+
+.warm{background:linear-gradient(180deg,#FFFDF7,#F6F1E4);color:#16233D;border:1px solid #E2D9C2;border-radius:14px;padding:18px}
+:root[data-theme="dark"] .warm,:root:not([data-theme="light"]) .warm{background:linear-gradient(180deg,#1D293D,#151F30);color:#E8EAF0;border-color:#2C3A52}
+.warm h2{color:#0B1F3A}
+:root[data-theme="dark"] .warm h2,:root:not([data-theme="light"]) .warm h2{color:#D9BE6A}
+
+pre{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:.76rem;line-height:1.45;white-space:pre-wrap;word-break:break-word;margin:0}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.7rem;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.scroll{overflow-x:auto}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:var(--navy);color:#fff;
+  padding:11px 15px;border-radius:10px;border:1px solid var(--gold);font-size:.88rem;z-index:99;max-width:90vw}
+footer.legal{max-width:900px;margin:0 auto;padding:16px 14px 44px;color:var(--muted);font-size:.75rem;border-top:1px solid var(--line)}
+.hidden{display:none!important}
+.ddg{width:11px;height:14px;vertical-align:-2px;margin-right:5px}
+
+.aaatile{background:var(--red);border:1.5px solid var(--gold);border-radius:9px;display:grid;
+  place-items:center;font-family:var(--hdr);font-weight:700;color:#fff;font-size:.8rem;letter-spacing:.6px}
+
+/* ---- DanDDee access gate. Brand here is DanDDee; everything behind it is AAA. ---- */
+#ddGate{position:fixed;inset:0;z-index:9999;background:#12203A;
+  background-image:radial-gradient(ellipse at 50% -10%, #223C6B 0%, #12203A 58%, #0A1426 100%);
+  display:flex;align-items:center;justify-content:center;padding:22px;overflow-y:auto;
+  font-family:Calibri,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:#EEF1F7}
+#ddGate.hidden{display:none}
+.ddg-box{width:100%;max-width:400px;text-align:center}
+.ddg-mark{width:96px;height:96px;margin:0 auto 14px}
+.ddg-mark svg{width:96px;height:96px;display:block}
+.ddg-wm{font-family:Cambria,Georgia,serif;font-weight:700;font-size:2rem;letter-spacing:.4px;color:#fff;margin:0}
+.ddg-tl{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:#C9A648;margin:2px 0 4px}
+.ddg-rule{height:3px;width:56px;background:#CC0000;border-radius:2px;margin:12px auto 16px}
+.ddg-tool{font-size:.95rem;color:#C3CDDE;margin:0 0 18px}
+.ddg-tool b{color:#fff}
+.ddg-card{background:rgba(255,255,255,.055);border:1px solid rgba(201,166,72,.34);
+  border-radius:16px;padding:18px;backdrop-filter:blur(2px)}
+.ddg-lab{display:block;text-align:left;font-size:.74rem;letter-spacing:.7px;text-transform:uppercase;
+  color:#C9A648;font-weight:700;margin-bottom:6px}
+#ddGateCode{width:100%;padding:14px;border-radius:11px;border:1px solid rgba(201,166,72,.45);
+  background:rgba(8,16,30,.72);color:#fff;font-size:17px;font-family:inherit;letter-spacing:1px;text-align:center}
+#ddGateCode:focus{outline:2px solid #C9A648;outline-offset:1px}
+#ddGateBtn{width:100%;margin-top:11px;padding:14px;border-radius:11px;border:1px solid #CC0000;
+  background:#CC0000;color:#fff;font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer}
+#ddGateBtn:disabled{opacity:.45;cursor:not-allowed}
+.ddg-msg{min-height:20px;margin-top:11px;font-size:.84rem;color:#FF8A8A}
+.ddg-msg.ok{color:#8FD9AE}
+.ddg-foot{margin-top:16px;font-size:.72rem;color:#8FA0BC;line-height:1.5}
+.ddg-foot b{color:#C9A648}
+.ddg-roles{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.ddg-role{font-size:.64rem;letter-spacing:.8px;text-transform:uppercase;border:1px solid rgba(201,166,72,.4);
+  border-radius:99px;padding:3px 10px;color:#C9A648}
+@media (max-width:420px){.ddg-mark,.ddg-mark svg{width:76px;height:76px}.ddg-wm{font-size:1.65rem}}
+
+</style>
+</head>
+<body>
+
+<header class="top"><div class="top-in">
+  <div class="m aaatile">AAA</div><div class="vbar"></div>
+  <div><h1>Commercial Sales Intake</h1><div class="s">AAA Smart Business Security</div></div>
+  <button class="tbtn" id="themeBtn" type="button">Dark</button>
+</div></header>
+
+<div class="rail"><div class="rail-in">
+  <div class="bar"><i id="barFill"></i></div>
+  <div class="railrow"><span id="railLeft">Step 1</span><span id="railRight">0%</span></div>
+  <div class="chips" id="chips"></div>
+</div></div>
+
+<main class="wrap" id="view"></main>
+
+<footer class="legal">
+  <div><svg class="ddg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 40" role="img" aria-label="DanDDee seed"><g transform="translate(16.00 38.00) rotate(0.00) scale(1.45)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#C8A951"/></g></svg><b>AAA Smart Business Security</b> Commercial Sales Intake &mdash; offline, single file. Platform by DanDDee; entry gate only.</div>
+  <div style="margin-top:6px"><b>No member information in this tool.</b> No names, addresses, account numbers, or panel account codes. Site records carry an opportunity reference only. Identity lives in the CRM, not here.</div>
+  <div style="margin-top:6px">Scope thresholds follow the current Retail Commercial Playbook &mdash; confirm the live edition with your Territory Manager before quoting. Fire and life safety scoping routes to the fire team. Licensing routes to Compliance. Contract language routes to legal review. Where a code or ordinance is referenced, the AHJ has final say.</div>
+</footer>
+
+<script>
+"use strict";
+
+var TRANSMIT_ENDPOINT = ""; // self-hosted only: paste an Apps Script /exec URL
+var TOOL_VERSION = "1.0";
+
+/* ---------- ICONS (inline, no network) ---------- */
+var ICON = {
+  door:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="1.5"/><circle cx="15.5" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg>',
+  window:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="4" width="17" height="16" rx="1.5"/><path d="M12 4v16M3.5 12h17"/></svg>',
+  motion:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h16l-2.5 5H6.5z"/><path d="M8 13l-2 6M16 13l2 6M12 13v6"/></svg>',
+  camera:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5h11v9H3z"/><path d="M14 11l6-3.2v8.4L14 13z"/></svg>',
+  reader:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9.5 8.5h5M9.5 12h5"/><circle cx="12" cy="16.5" r="1.3"/></svg>',
+  panel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M7.5 9h9M7.5 12.5h9M7.5 16h5"/></svg>',
+  siren:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 17v-4a6 6 0 0 1 12 0v4z"/><path d="M4 20h16M12 3v2M4.5 6.5l1.4 1.4M19.5 6.5l-1.4 1.4"/></svg>',
+  smoke:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.2"/></svg>',
+  env:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3s5 6.2 5 9.6A5 5 0 0 1 7 12.6C7 9.2 12 3 12 3z"/></svg>',
+  net:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 9a11 11 0 0 1 16 0M7 12.5a7 7 0 0 1 10 0M10 16a3 3 0 0 1 4 0"/><circle cx="12" cy="19" r="1.2" fill="currentColor" stroke="none"/></svg>'
+};
+var DEVICES = [
+  {k:"door",   t:"Door",    c:"#0B1F3A"},
+  {k:"window", t:"Window",  c:"#0B1F3A"},
+  {k:"motion", t:"Motion",  c:"#0B1F3A"},
+  {k:"camera", t:"Camera",  c:"#CC0000"},
+  {k:"reader", t:"Reader",  c:"#CC0000"},
+  {k:"panel",  t:"Panel",   c:"#C8A951"},
+  {k:"siren",  t:"Siren",   c:"#C8A951"},
+  {k:"smoke",  t:"Detector",c:"#C8A951"},
+  {k:"env",    t:"Environ", c:"#C8A951"},
+  {k:"net",    t:"Network", c:"#C8A951"}
+];
+function devMeta(k){ for(var i=0;i<DEVICES.length;i++){ if(DEVICES[i].k===k) return DEVICES[i]; } return DEVICES[0]; }
+
+/* ---------- QUESTION BANK ---------- */
+var BANK = [
+ {id:"open", title:"Opening — wellbeing before business",
+  why:"Every contact starts here. Not a formality, and not after the pitch.",
+  items:[
+   {k:"safe", t:"Confirmed the contact is safe and in a secure location", s:"\u201cAre you safe? Are you in a secure location? Is everything okay?\u201d"},
+   {k:"id",   t:"Identified self, company and purpose within ten seconds"},
+   {k:"auth", t:"Confirmed this person can authorise a walk and a scope conversation"}
+  ]},
+ {id:"risk", title:"What are they actually protecting?",
+  why:"Scope follows risk. Product comes last, never first.",
+  items:[
+   {k:"loss",   t:"Prior loss, break-in, or theft event", s:"Ask what happened, not whether it happened."},
+   {k:"cash",   t:"Cash on premises or after-hours deposits"},
+   {k:"inventory", t:"High-value or easily-moved inventory"},
+   {k:"lone",   t:"Staff working alone or closing alone"},
+   {k:"liability", t:"Slip, injury, or dispute exposure that video would settle"},
+   {k:"compliance", t:"Insurance or landlord requirement driving the purchase", s:"If yes, get the written requirement before scoping."}
+  ]},
+ {id:"ops", title:"How the site actually runs",
+  why:"Arming schedules and staff turnover break more systems than hardware does.",
+  items:[
+   {k:"hours",  t:"Opening and closing routine documented"},
+   {k:"who",    t:"Who arms and disarms, and how many of them"},
+   {k:"turnover", t:"High staff turnover — codes and credentials change often"},
+   {k:"deliver",t:"Deliveries or contractors needing scheduled access"},
+   {k:"multi",  t:"More than one location under the same owner", s:"Multi-site changes the whole conversation. Flag it."}
+  ]},
+ {id:"intrusion", title:"Intrusion",
+  why:"Perimeter first, interior second. Count openings before you count devices.",
+  items:[
+   {k:"perim", t:"Every exterior opening identified and counted"},
+   {k:"glass", t:"Storefront glass or roll-up doors present"},
+   {k:"interior", t:"Interior zones needing separate protection (office, stock room, safe)"},
+   {k:"existing", t:"Existing intrusion system present", s:"Do not assess or work an existing panel you cannot positively identify."}
+  ]},
+ {id:"video", title:"Video",
+  why:"Four or more cameras triggers design review. Count honestly before you promise anything.",
+  items:[
+   {k:"purpose", t:"Stated purpose for video — deterrence, evidence, or operations"},
+   {k:"retention", t:"Retention expectation discussed in days"},
+   {k:"night", t:"Low-light or overnight coverage required"},
+   {k:"remote", t:"Remote viewing expected, and by whom"},
+   {k:"privacy", t:"Areas where cameras must not point identified", s:"Restrooms, changing areas, and neighbouring property. Ask, do not assume."}
+  ]},
+ {id:"access", title:"Access control",
+  why:"Any access control component means the custom scope form. No verbal scoping, ever.",
+  items:[
+   {k:"doors", t:"Doors requiring credentialed access identified"},
+   {k:"cred", t:"Credential type expected — card, fob, mobile, keypad"},
+   {k:"sched", t:"Scheduled unlock or lockdown requirement"},
+   {k:"egress", t:"Egress and fire-release arrangement raised", s:"Do not design this in the field. Route it."}
+  ]},
+ {id:"fire", title:"Fire and life safety",
+  why:"Identify and route. You do not scope, price, or promise fire in this tool.",
+  items:[
+   {k:"present", t:"Existing fire alarm or sprinkler monitoring present"},
+   {k:"ask", t:"Member asked about fire, sprinkler, or monitoring takeover", s:"Route to the fire team. Say so out loud, then log it here."},
+   {k:"permit", t:"Anything that reads as a permit, monitoring, or false-alarm ordinance issue", s:"Flag it now, even mid-walk."}
+  ]},
+ {id:"infra", title:"Connectivity and infrastructure",
+  why:"The install dies here more often than anywhere else.",
+  items:[
+   {k:"internet", t:"Internet service present and reachable at the panel location"},
+   {k:"cell", t:"Cellular signal checked at the intended panel location"},
+   {k:"power", t:"Power available and adequate at each device location"},
+   {k:"path", t:"Cable paths walked, not assumed"},
+   {k:"ceiling", t:"Ceiling type and height noted"}
+  ]}
+];
+
+/* ---------- STATE ---------- */
+var S = {
+  version: TOOL_VERSION, step:0,
+  site:{ ref:"", dlr:"", rep:"", state:"", date:"", type:"", sqft:"", floors:"",
+         entries:"", hours:"", existing:"", notes:"" },
+  answers:{}, devices:[], flags:{}, close:{ recap:"", next:"", owner:"", due:"" },
+  finalized:false, updatedAt:"", createdAt:""
+};
+
+var STEPS=[{id:"site",label:"1 Site"},{id:"needs",label:"2 Needs"},{id:"sketch",label:"3 Sketch"},
+           {id:"scope",label:"4 Scope"},{id:"close",label:"5 Close"}];
+
+var ADAPTER=null, DOWNLOADS=null, SEL="door";
+
+/* ---------- STORAGE ---------- */
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+function localAdapter(){
+  return { mode:"local", uid:"local", isOwner:false,
+    save:function(r){ lsSet("dd.intake.v1", JSON.stringify(r));
+      if(TRANSMIT_ENDPOINT){ try{ fetch(TRANSMIT_ENDPOINT,{method:"POST",mode:"no-cors",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify({type:"intake",record:r})}).catch(function(){}); }catch(e){} }
+      return Promise.resolve(); },
+    loadMine:function(){ var r=lsGet("dd.intake.v1");
+      if(!r) return Promise.resolve(null);
+      try{ return Promise.resolve(JSON.parse(r)); }catch(e){ return Promise.resolve(null); } },
+    loadAll:function(){ return Promise.resolve([]); } };
+}
+function dbAdapter(db,uid,isOwner){
+  var draft=db.doc("intakes/"+uid+"/items/draft");
+  return { mode:"db", uid:uid, isOwner:isOwner,
+    save:function(r){ return draft.set(r); },
+    loadMine:function(){ return draft.get().then(function(s){ return s.exists?s.data():null; }); },
+    commit:function(r){ var id="i"+Date.now();
+      return db.doc("intakes/"+uid+"/items/"+id).set(r); },
+    loadAll:function(){ return db.collection("intakes").limit(200).get().then(function(qs){
+      return qs.docs.map(function(d){ var o=d.data()||{}; o.__id=d.id; return o; }); }); } };
+}
+function boot(){
+  render();
+  if(!window.claude||typeof window.claude.use!=="function"){ ADAPTER=localAdapter(); after(); return; }
+  Promise.resolve(window.claude.use("db")).then(function(db){
+    if(!db){ ADAPTER=localAdapter(); after(); return; }
+    return Promise.resolve(window.claude.use("user")).then(function(u){
+      return Promise.all([u?u.id():Promise.resolve(null), u?u.isOwner():Promise.resolve(false)])
+        .then(function(r){
+          if(!r[0]){ ADAPTER=localAdapter(); after(); return; }
+          ADAPTER=dbAdapter(db,r[0],!!r[1]); after(); });
+    });
+  }).catch(function(){ ADAPTER=localAdapter(); after(); });
+  Promise.resolve(window.claude.use("downloads")).then(function(d){ DOWNLOADS=d; }).catch(function(){});
+}
+function after(){
+  ADAPTER.loadMine().then(function(r){
+    if(r&&r.site){ merge(r); }
+    render();
+  }).catch(function(){ render(); });
+}
+function merge(r){
+  ["step","finalized","createdAt","updatedAt"].forEach(function(k){ if(r[k]!==undefined) S[k]=r[k]; });
+  if(r.site) Object.keys(S.site).forEach(function(k){ if(r.site[k]!==undefined) S.site[k]=r.site[k]; });
+  if(r.answers) S.answers=r.answers;
+  if(r.devices) S.devices=r.devices;
+  if(r.close) S.close=r.close;
+}
+var tmr=null, busy=false;
+function persist(now){
+  S.updatedAt=new Date().toISOString(); if(!S.createdAt) S.createdAt=S.updatedAt;
+  var rec=JSON.parse(JSON.stringify(S));
+  if(tmr){ clearTimeout(tmr); tmr=null; }
+  function go(){ if(!ADAPTER||busy) return; busy=true;
+    Promise.resolve(ADAPTER.save(rec)).then(function(){ busy=false; })
+      .catch(function(){ busy=false; }); }
+  if(now) go(); else tmr=setTimeout(go,700);
+}
+
+/* ---------- HELPERS ---------- */
+function el(i){ return document.getElementById(i); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+function toast(m){ var t=document.createElement("div"); t.className="toast"; t.textContent=m;
+  document.body.appendChild(t); setTimeout(function(){ t.remove(); },3000); }
+function count(k){ var n=0; S.devices.forEach(function(d){ if(d.k===k) n++; }); return n; }
+function answered(gid){ var n=0, g=null;
+  BANK.forEach(function(x){ if(x.id===gid) g=x; });
+  if(!g) return 0;
+  g.items.forEach(function(it){ if(S.answers[gid+"."+it.k]) n++; });
+  return n; }
+function totalAnswered(){ var n=0; Object.keys(S.answers).forEach(function(k){ if(S.answers[k]) n++; }); return n; }
+function totalItems(){ var n=0; BANK.forEach(function(g){ n+=g.items.length; }); return n; }
+function pct(){
+  var p=0;
+  if(S.site.ref&&S.site.dlr&&S.site.sqft) p+=20;
+  p += Math.round(20*(totalAnswered()/totalItems()));
+  if(S.devices.length) p+=20;
+  if(S.step>=3) p+=20;
+  if(S.finalized) p+=20;
+  return Math.min(100,p);
+}
+
+/* ---------- SCOPE FLAGS ---------- */
+function evalFlags(){
+  var sq=parseInt(S.site.sqft,10)||0, cams=count("camera"), readers=count("reader");
+  var fire = !!(S.answers["fire.ask"]||S.answers["fire.present"]);
+  var permit = !!S.answers["fire.permit"];
+  var multi = !!S.answers["ops.multi"];
+  return [
+   {k:"sqft", hit:sq>3000, title:"Square footage cap",
+    on:"Site is "+sq.toLocaleString()+" sq ft \u2014 over the 3,000 sq ft retail commercial cap. Escalate to custom design before you quote anything.",
+    off:(sq? "Site is "+sq.toLocaleString()+" sq ft \u2014 inside the 3,000 sq ft cap." : "Square footage not entered yet.")},
+   {k:"cams", hit:cams>=4, title:"Camera design review",
+    on:cams+" cameras placed \u2014 four or more triggers design review. Do not quote video until review clears.",
+    off:cams+" camera"+(cams===1?"":"s")+" placed \u2014 under the design review trigger."},
+   {k:"access", hit:readers>0||!!S.answers["access.doors"]||!!S.answers["access.cred"], title:"Access control custom form",
+    on:"Access control is in scope. The custom scope form is required. No verbal scoping, no exceptions.",
+    off:"No access control identified."},
+   {k:"fire", hit:fire, title:"Fire and life safety routing",
+    on:"Fire or life safety came up. Route to the fire team. You do not scope, price, or promise it here.",
+    off:"No fire or life safety scope raised."},
+   {k:"permit", hit:permit, title:"Permit / monitoring / ordinance",
+    on:"Something reads as a permit, monitoring, or false-alarm ordinance issue. Flag it now, before anything is sold or activated. The AHJ has final say.",
+    off:"No ordinance concern flagged."},
+   {k:"multi", hit:multi, title:"Multi-site opportunity",
+    on:"More than one location under the same owner. This is a different conversation and a different approval path \u2014 get your Territory Manager in before you scope site one.",
+    off:"Single site."},
+   {k:"price", hit:true, title:"Price authority", gold:true,
+    on:"Quote only from an approved price authority. Component roll-ups are not sell prices. If you cannot source a number, you do not say a number.",
+    off:""}
+  ];
+}
+function hitFlags(){ return evalFlags().filter(function(f){ return f.hit && !f.gold; }); }
+
+/* ---------- RENDER ---------- */
+function render(){
+  var id=STEPS[S.step].id;
+  el("barFill").style.width=pct()+"%";
+  el("railLeft").textContent="Step "+(S.step+1)+" of 5 \u2014 "+STEPS[S.step].label.replace(/^\d\s/,"");
+  el("railRight").textContent=pct()+"%";
+  el("chips").innerHTML=STEPS.map(function(s,i){
+    var c="chip"+(i===S.step?" now":(stepDone(i)?" done":""));
+    return '<button class="'+c+'" data-go="'+i+'" type="button">'+esc(s.label)+'</button>'; }).join("");
+  var v=el("view");
+  if(id==="site") v.innerHTML=vSite();
+  else if(id==="needs") v.innerHTML=vNeeds();
+  else if(id==="sketch") v.innerHTML=vSketch();
+  else if(id==="scope") v.innerHTML=vScope();
+  else v.innerHTML=vClose();
+  wire();
+  if(id==="sketch") initSketch();
+}
+function stepDone(i){
+  if(i===0) return !!(S.site.ref&&S.site.dlr&&S.site.sqft);
+  if(i===1) return totalAnswered()>0;
+  if(i===2) return S.devices.length>0;
+  if(i===3) return S.step>3;
+  return S.finalized;
+}
+function go(i){ S.step=i; persist(); render(); window.scrollTo(0,0); }
+
+function f(k,label,val,type,ph){
+  return '<label class="f"><span>'+esc(label)+'</span><input type="'+(type||"text")+'" id="s_'+k+'" value="'+esc(val)+'" placeholder="'+esc(ph||"")+'" autocomplete="off"></label>';
+}
+function sel(k,label,val,opts){
+  return '<label class="f"><span>'+esc(label)+'</span><select id="s_'+k+'">'+
+    opts.map(function(o){ return '<option value="'+esc(o)+'"'+(o===val?" selected":"")+'>'+esc(o===""?"Select\u2026":o)+'</option>'; }).join("")+
+    '</select></label>';
+}
+
+function vSite(){
+  var s=S.site;
+  return '<div class="card"><div class="kicker">Step 1</div><h2>Site profile</h2><div class="gold"></div>'+
+  '<div class="danger"><b>Identity does not live here.</b> No business name, no address, no contact name, no account number. Use the opportunity reference from the CRM. If you need to know whose site it is, open the CRM.</div>'+
+  '<div class="grid2">'+f("ref","Opportunity reference",s.ref,"text","CRM record ID")+f("dlr","Dealer number (DLR #)",s.dlr)+'</div>'+
+  '<div class="grid2">'+sel("rep","Your role",s.rep,["","Commercial Sales Rep","Dealer Principal","Dealer Sales Rep","Territory Manager","Field Technician"])+
+    sel("state","State",s.state,["","AZ","CA","NV","UT","MT","WY","OR","ID","AK","Other"])+'</div>'+
+  '<div class="grid2">'+f("date","Walk date",s.date,"date")+
+    sel("type","Business type",s.type,["","Retail storefront","Restaurant / bar","Office suite","Medical / dental","Warehouse / light industrial","Auto / dealership","Self-storage","Salon / studio","Cannabis","Other"])+'</div>'+
+  '<div class="grid3">'+f("sqft","Square footage",s.sqft,"number","e.g. 2400")+f("floors","Floors",s.floors,"number")+f("entries","Exterior doors",s.entries,"number")+'</div>'+
+  '<div class="grid2">'+f("hours","Operating hours",s.hours,"text","e.g. 7a\u201310p, closed Sun")+
+    sel("existing","Existing system",s.existing,["","None","Present \u2014 identified","Present \u2014 not identified","Unknown"])+'</div>'+
+  '<label class="f"><span>Walk notes (no member information)</span><textarea id="s_notes">'+esc(s.notes)+'</textarea></label>'+
+  '<div class="note"><b>Square footage matters here.</b> Over 3,000 sq ft is a custom design escalation, not a stretch. Measure or ask; do not estimate to stay under a threshold.</div>'+
+  '<button class="btn" id="saveSite" type="button">Save and continue</button></div>';
+}
+
+function vNeeds(){
+  var h='<div class="card"><div class="kicker">Step 2</div><h2>Needs discovery</h2><div class="gold"></div>'+
+   '<p class="muted">Tick what you actually confirmed on the walk. Blank is an honest answer; a guess is not. '+totalAnswered()+' of '+totalItems()+' confirmed.</p></div>';
+  BANK.forEach(function(g){
+    h+='<div class="card"><div class="kicker">'+esc(g.title)+'</div>'+
+       '<h3 style="font-family:var(--body);font-weight:700;font-size:.95rem;margin:0 0 3px">'+answered(g.id)+' of '+g.items.length+' confirmed</h3>'+
+       '<div class="muted" style="margin-bottom:10px">'+esc(g.why)+'</div>'+
+       g.items.map(function(it){
+         var k=g.id+"."+it.k, on=!!S.answers[k];
+         return '<label class="opt'+(on?" sel":"")+'"><input type="checkbox" class="ans" data-k="'+k+'"'+(on?" checked":"")+'>'+
+                '<span>'+esc(it.t)+(it.s?'<small>'+esc(it.s)+'</small>':'')+'</span></label>'; }).join("")+
+       '</div>';
+  });
+  h+='<div class="card"><div class="btnrow">'+
+     '<button class="btn ghost" data-go="0" type="button">Back</button>'+
+     '<button class="btn" data-go="2" type="button">Continue to sketch</button></div></div>';
+  return h;
+}
+
+function vSketch(){
+  return '<div class="card"><div class="kicker">Step 3</div><h2>Layout sketch</h2><div class="gold"></div>'+
+  '<p class="muted">Pick a device, tap the plan to place it. Tap a placed device to remove it. Counts feed the scope flags on the next step, so place what you actually intend to install.</p>'+
+  '<div class="studio">'+
+    '<div class="palette" id="palette">'+DEVICES.map(function(d){
+      return '<button class="pbtn'+(d.k===SEL?" on":"")+'" data-dev="'+d.k+'" type="button">'+
+             '<span style="color:'+d.c+'">'+ICON[d.k]+'</span>'+esc(d.t)+'</button>'; }).join("")+'</div>'+
+    '<svg id="sketch" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg"></svg>'+
+    '<div class="studiobar">'+
+      '<button class="sbtn" id="undoBtn" type="button">Undo</button>'+
+      '<button class="sbtn" id="clearBtn" type="button">Clear</button>'+
+      '<button class="sbtn" id="exportBtn" type="button">Export sketch</button>'+
+    '</div>'+
+  '</div>'+
+  '<div class="tally" id="tally"></div>'+
+  '<div class="btnrow"><button class="btn ghost" data-go="1" type="button">Back</button>'+
+  '<button class="btn" data-go="3" type="button">Continue to scope</button></div></div>'+
+  '<div class="card"><div class="kicker">Member equipment view</div><h2>What they would actually get</h2><div class="gold"></div>'+
+  '<p class="muted">This is the plain-language list. No part numbers, no jargon, no prices. Turn the screen and read it to them.</p>'+
+  '<div id="equipView"></div></div>';
+}
+
+var EQTEXT={
+  door:["Door contacts","Tells the system the moment a door opens, armed or not."],
+  window:["Window contacts","Same protection on windows that open."],
+  motion:["Motion detectors","Covers the space between the openings."],
+  camera:["Cameras","Recorded video you can pull up from your phone."],
+  reader:["Card or fob readers","Controls who gets in, and leaves a record of it."],
+  panel:["Control panel","The brain. Talks to monitoring even if the internet drops."],
+  siren:["Sirens","Makes the intrusion everyone else's problem immediately."],
+  smoke:["Detectors","Life safety devices \u2014 handled by the fire team, not quoted here."],
+  env:["Environmental sensors","Water, temperature, and the losses nobody insures against."],
+  net:["Network equipment","Keeps the system connected and the video reachable."]
+};
+function renderEquip(){
+  var box=el("equipView"); if(!box) return;
+  var rows=DEVICES.map(function(d){
+    var n=count(d.k); if(!n) return "";
+    var t=EQTEXT[d.k];
+    return '<div class="eqrow"><div class="ic" style="color:'+d.c+'">'+ICON[d.k]+'</div>'+
+           '<div class="t"><b>'+esc(t[0])+'</b><span>'+esc(t[1])+'</span></div>'+
+           '<div class="n">'+n+'</div></div>'; }).join("");
+  box.innerHTML = rows || '<p class="muted">Nothing placed yet. Sketch the layout above and this fills in.</p>';
+}
+
+function vScope(){
+  var flags=evalFlags();
+  var h='<div class="card"><div class="kicker">Step 4</div><h2>Scope flags</h2><div class="gold"></div>'+
+   '<p class="muted">Evaluated live from the site profile and the sketch. Nothing here is optional. Every hit needs a named owner and a due date before you leave the site.</p>';
+  flags.forEach(function(fl){
+    var cls = fl.gold ? "flag" : (fl.hit?"flag hit":"flag clear");
+    var pill = fl.gold ? '<span class="pill gold">Always</span>'
+              : (fl.hit?'<span class="pill hit">Escalate</span>':'<span class="pill clear">Clear</span>');
+    h+='<div class="'+cls+'"><h3>'+esc(fl.title)+' '+pill+'</h3>'+
+       '<div class="muted" style="color:var(--ink)">'+esc(fl.hit||fl.gold?fl.on:fl.off)+'</div>';
+    if(fl.hit&&!fl.gold){
+      var o=(S.flags[fl.k]&&S.flags[fl.k].owner)||"", d=(S.flags[fl.k]&&S.flags[fl.k].due)||"";
+      h+='<div class="grid2" style="margin-top:8px">'+
+         '<label class="f"><span>Follow-up owner</span><input type="text" class="fo" data-k="'+fl.k+'" value="'+esc(o)+'" placeholder="Role or DLR #"></label>'+
+         '<label class="f"><span>Due date</span><input type="date" class="fd" data-k="'+fl.k+'" value="'+esc(d)+'"></label></div>';
+    }
+    h+='</div>';
+  });
+  h+='<div class="btnrow"><button class="btn ghost" data-go="2" type="button">Back</button>'+
+     '<button class="btn" data-go="4" type="button">Continue to close</button></div></div>';
+  return h;
+}
+
+function vClose(){
+  var hits=hitFlags();
+  return '<div class="card"><div class="kicker">Step 5</div><h2>True North close</h2><div class="gold"></div>'+
+  '<div class="warm"><h2 style="font-size:1.1rem">Read this part out loud</h2>'+
+  '<p style="margin-bottom:.5em"><b>\u201cBefore we talk about anything else \u2014 are you safe? Is everyone here okay?\u201d</b></p>'+
+  '<p style="margin-bottom:.5em">\u201cHere is what I heard from you today, in your words. Here is what I can do about it, and here is the part I have to take back to a specialist before I promise you anything.\u201d</p>'+
+  '<p style="margin:0">\u201cYou will hear from me by <b>'+(esc(S.close.due)||"[date]")+'</b>, whether or not I have an answer yet.\u201d</p></div>'+
+  (hits.length? '<div class="danger" style="margin-top:12px"><b>'+hits.length+' open escalation'+(hits.length>1?"s":"")+' on this site.</b> Say them out loud before you leave. A scope flag the member hears about on the walk is a conversation; one they find out about later is a broken promise.<ul class="tight" style="margin-top:6px">'+
+     hits.map(function(x){ return "<li>"+esc(x.title)+"</li>"; }).join("")+'</ul></div>' :
+     '<div class="note" style="margin-top:12px">No escalations on this site. Price still comes from the price authority, never from memory.</div>')+
+  '<label class="f"><span>Recap in their words \u2014 what they told you they are protecting</span><textarea id="c_recap">'+esc(S.close.recap)+'</textarea></label>'+
+  '<label class="f"><span>The single next step</span><textarea id="c_next">'+esc(S.close.next)+'</textarea></label>'+
+  '<div class="grid2">'+
+    '<label class="f"><span>Who owns it</span><input type="text" id="c_owner" value="'+esc(S.close.owner)+'" placeholder="Role or DLR #"></label>'+
+    '<label class="f"><span>By when</span><input type="date" id="c_due" value="'+esc(S.close.due)+'"></label></div>'+
+  '<button class="btn gold" id="finalize" type="button">'+(S.finalized?"Update intake record":"Finalise this intake")+'</button>'+
+  '<div class="btnrow"><button class="btn ghost" id="copySum" type="button">Copy summary</button>'+
+  '<button class="btn ghost" id="dlSum" type="button">Download summary</button></div>'+
+  '<div class="btnrow"><button class="btn ghost" id="dlSketch" type="button">Download sketch</button>'+
+  '<button class="btn ghost" id="newIntake" type="button">Start a new intake</button></div>'+
+  '<h3 style="margin-top:18px">Summary</h3><pre id="sumBox">'+esc(summary())+'</pre></div>';
+}
+
+function summary(){
+  var s=S.site, hits=hitFlags();
+  var out="AAA SMART BUSINESS SECURITY — COMMERCIAL SALES INTAKE\n==================================================\n";
+  out+="Opportunity ref: "+(s.ref||"-")+"\nDLR #: "+(s.dlr||"-")+"\nRole: "+(s.rep||"-")+
+       "\nState: "+(s.state||"-")+"\nWalk date: "+(s.date||"-")+"\n\n";
+  out+="SITE\n  Type: "+(s.type||"-")+"\n  Square footage: "+(s.sqft||"-")+
+       "\n  Floors: "+(s.floors||"-")+"\n  Exterior doors: "+(s.entries||"-")+
+       "\n  Hours: "+(s.hours||"-")+"\n  Existing system: "+(s.existing||"-")+"\n";
+  if(s.notes) out+="  Notes: "+s.notes+"\n";
+  out+="\nDISCOVERY ("+totalAnswered()+"/"+totalItems()+" confirmed)\n";
+  BANK.forEach(function(g){
+    var hit=g.items.filter(function(it){ return S.answers[g.id+"."+it.k]; });
+    if(!hit.length) return;
+    out+="  "+g.title+"\n";
+    hit.forEach(function(it){ out+="    - "+it.t+"\n"; });
+  });
+  out+="\nDEVICES PLACED\n";
+  var any=false;
+  DEVICES.forEach(function(d){ var n=count(d.k); if(n){ any=true; out+="  "+d.t+": "+n+"\n"; } });
+  if(!any) out+="  (none placed)\n";
+  out+="\nSCOPE FLAGS\n";
+  if(hits.length){
+    hits.forEach(function(fl){
+      var o=(S.flags[fl.k]&&S.flags[fl.k].owner)||"UNASSIGNED";
+      var d=(S.flags[fl.k]&&S.flags[fl.k].due)||"NO DATE";
+      out+="  [ESCALATE] "+fl.title+"\n    "+fl.on+"\n    Owner: "+o+"  Due: "+d+"\n";
+    });
+  } else out+="  No escalations.\n";
+  out+="  [ALWAYS] Price authority \u2014 quote only from an approved source. Roll-ups are not sell prices.\n";
+  out+="\nCLOSE\n  Recap: "+(S.close.recap||"-")+"\n  Next step: "+(S.close.next||"-")+
+       "\n  Owner: "+(S.close.owner||"-")+"\n  Due: "+(S.close.due||"-")+"\n";
+  out+="\nNo member identifying information is recorded in this tool by design.\n";
+  out+="Fire and life safety scoping routes to the fire team. Licensing routes to Compliance.\n";
+  out+="Contract language routes to legal review. AHJ has final say on any code or ordinance question.\n";
+  out+="AAA Commercial Sales Intake v"+TOOL_VERSION+"\n";
+  return out;
+}
+
+/* ---------- SKETCH ---------- */
+function initSketch(){
+  var svg=el("sketch"); if(!svg) return;
+  drawSketch();
+  svg.addEventListener("click",function(e){
+    var pt=svgPoint(svg,e);
+    var hitIdx=-1;
+    for(var i=S.devices.length-1;i>=0;i--){
+      var d=S.devices[i];
+      if(Math.abs(d.x-pt.x)<18&&Math.abs(d.y-pt.y)<18){ hitIdx=i; break; }
+    }
+    if(hitIdx>=0){ S.devices.splice(hitIdx,1); }
+    else { S.devices.push({k:SEL,x:Math.round(pt.x),y:Math.round(pt.y)}); }
+    persist(); drawSketch(); renderEquip(); renderTally();
+  });
+  renderEquip(); renderTally();
+}
+function svgPoint(svg,e){
+  var r=svg.getBoundingClientRect();
+  var vb=svg.viewBox.baseVal;
+  return { x:(e.clientX-r.left)/r.width*vb.width, y:(e.clientY-r.top)/r.height*vb.height };
+}
+function sketchMarkup(forExport){
+  var g='';
+  // plan grid + a generic footprint
+  g+='<rect x="0" y="0" width="600" height="420" fill="'+(forExport?"#ffffff":"transparent")+'"/>';
+  for(var x=20;x<600;x+=20) g+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="420" stroke="#D9D3C4" stroke-width="0.5" opacity="0.55"/>';
+  for(var y=20;y<420;y+=20) g+='<line x1="0" y1="'+y+'" x2="600" y2="'+y+'" stroke="#D9D3C4" stroke-width="0.5" opacity="0.55"/>';
+  g+='<rect x="60" y="50" width="480" height="320" fill="none" stroke="#0B1F3A" stroke-width="3"/>';
+  g+='<line x1="60" y1="250" x2="360" y2="250" stroke="#0B1F3A" stroke-width="2" opacity="0.6"/>';
+  g+='<line x1="360" y1="250" x2="360" y2="370" stroke="#0B1F3A" stroke-width="2" opacity="0.6"/>';
+  g+='<text x="70" y="70" font-family="Calibri,Arial" font-size="12" fill="#5D6577">SALES FLOOR</text>';
+  g+='<text x="70" y="270" font-family="Calibri,Arial" font-size="12" fill="#5D6577">BACK OF HOUSE</text>';
+  g+='<text x="372" y="270" font-family="Calibri,Arial" font-size="12" fill="#5D6577">OFFICE</text>';
+  S.devices.forEach(function(d){
+    var m=devMeta(d.k);
+    g+='<g transform="translate('+(d.x-12)+' '+(d.y-12)+')" style="color:'+m.c+'">'+
+       '<circle cx="12" cy="12" r="15" fill="#ffffff" stroke="'+m.c+'" stroke-width="1.5" opacity="0.95"/>'+
+       '<g transform="translate(2 2) scale(0.83)">'+ICON[d.k].replace('<svg viewBox="0 0 24 24"','<svg viewBox="0 0 24 24" width="24" height="24"')+'</g></g>';
+  });
+  return g;
+}
+function drawSketch(){
+  var svg=el("sketch"); if(!svg) return;
+  svg.innerHTML=sketchMarkup(false);
+}
+function renderTally(){
+  var box=el("tally"); if(!box) return;
+  var items=DEVICES.map(function(d){ var n=count(d.k);
+    return n? '<span class="tchip">'+esc(d.t)+' <b>'+n+'</b></span>':''; }).join("");
+  box.innerHTML = items || '<span class="tchip muted">Nothing placed yet</span>';
+}
+function exportSketch(){
+  var s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" width="1200" height="840">'+
+        sketchMarkup(true)+'</svg>';
+  saveFile("AAA intake sketch "+(S.site.ref||"intake")+".svg", s, "image/svg+xml");
+}
+
+/* ---------- WIRE ---------- */
+function wire(){
+  document.querySelectorAll("[data-go]").forEach(function(b){
+    b.onclick=function(){ collect(); go(parseInt(b.getAttribute("data-go"),10)); }; });
+
+  document.querySelectorAll(".opt").forEach(function(l){
+    l.addEventListener("click",function(){ var i=l.querySelector("input");
+      setTimeout(function(){ l.classList.toggle("sel",i.checked); },0); }); });
+
+  document.querySelectorAll(".ans").forEach(function(c){
+    c.onchange=function(){ S.answers[c.getAttribute("data-k")]=c.checked; persist(); }; });
+
+  var ss=el("saveSite");
+  if(ss) ss.onclick=function(){
+    collect();
+    if(!S.site.ref){ toast("Opportunity reference is required."); return; }
+    if(!S.site.dlr){ toast("Dealer number is required."); return; }
+    if(!S.site.sqft){ toast("Square footage is required \u2014 it drives the scope cap."); return; }
+    persist(true); toast("Saved."); go(1); };
+
+  document.querySelectorAll(".pbtn").forEach(function(b){
+    b.onclick=function(){ SEL=b.getAttribute("data-dev");
+      document.querySelectorAll(".pbtn").forEach(function(x){ x.classList.remove("on"); });
+      b.classList.add("on"); }; });
+
+  var u=el("undoBtn"); if(u) u.onclick=function(){ S.devices.pop(); persist(); drawSketch(); renderEquip(); renderTally(); };
+  var c=el("clearBtn"); if(c) c.onclick=function(){ if(!S.devices.length) return;
+    S.devices=[]; persist(); drawSketch(); renderEquip(); renderTally(); toast("Sketch cleared."); };
+  var x=el("exportBtn"); if(x) x.onclick=exportSketch;
+  var ds=el("dlSketch"); if(ds) ds.onclick=exportSketch;
+
+  document.querySelectorAll(".fo").forEach(function(i){
+    i.onchange=function(){ var k=i.getAttribute("data-k");
+      S.flags[k]=S.flags[k]||{}; S.flags[k].owner=i.value.trim(); persist(); }; });
+  document.querySelectorAll(".fd").forEach(function(i){
+    i.onchange=function(){ var k=i.getAttribute("data-k");
+      S.flags[k]=S.flags[k]||{}; S.flags[k].due=i.value; persist(); }; });
+
+  var fin=el("finalize");
+  if(fin) fin.onclick=function(){
+    collect();
+    var hits=hitFlags(), missing=hits.filter(function(h){
+      return !(S.flags[h.k]&&S.flags[h.k].owner&&S.flags[h.k].due); });
+    if(missing.length){ toast(missing.length+" escalation"+(missing.length>1?"s":"")+" still needs an owner and a date."); go(3); return; }
+    if(!S.close.next||!S.close.owner||!S.close.due){ toast("Next step, owner and date are all required."); return; }
+    S.finalized=true; persist(true);
+    if(ADAPTER&&ADAPTER.commit){ ADAPTER.commit(JSON.parse(JSON.stringify(S)))
+      .then(function(){ toast("Intake filed."); }).catch(function(){ toast("Saved locally \u2014 filing did not go through."); }); }
+    else toast("Intake finalised.");
+    render(); };
+
+  var cs=el("copySum"); if(cs) cs.onclick=function(){ collect(); copyText(summary()); };
+  var dl=el("dlSum"); if(dl) dl.onclick=function(){ collect();
+    saveFile("AAA intake "+(S.site.ref||"record")+".txt", summary(), "text/plain"); };
+  var ni=el("newIntake"); if(ni) ni.onclick=function(){
+    if(!S.finalized&&!confirm("This intake is not finalised. Start a new one anyway?")) return;
+    S={version:TOOL_VERSION,step:0,site:{ref:"",dlr:S.site.dlr,rep:S.site.rep,state:S.site.state,date:"",
+       type:"",sqft:"",floors:"",entries:"",hours:"",existing:"",notes:""},
+       answers:{},devices:[],flags:{},close:{recap:"",next:"",owner:"",due:""},
+       finalized:false,updatedAt:"",createdAt:""};
+    persist(true); render(); window.scrollTo(0,0); toast("New intake started."); };
+}
+
+function collect(){
+  Object.keys(S.site).forEach(function(k){ var e=el("s_"+k); if(e) S.site[k]=e.value.trim(); });
+  ["recap","next","owner","due"].forEach(function(k){ var e=el("c_"+k); if(e) S.close[k]=e.value.trim(); });
+}
+
+/* ---------- IO ---------- */
+function copyText(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){ toast("Copied."); }).catch(function(){ fb(t); }); }
+  else fb(t); }
+function fb(t){ var ta=document.createElement("textarea"); ta.value=t;
+  ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); toast("Copied."); }catch(e){ toast("Copy failed."); } ta.remove(); }
+function saveFile(name,data,mime){
+  if(DOWNLOADS&&DOWNLOADS.save){ DOWNLOADS.save({filename:name,data:data})
+    .then(function(){ toast("Saved."); }).catch(function(){ toast("Save declined."); }); return; }
+  try{ var b=new Blob([data],{type:mime||"text/plain"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); },1500);
+  }catch(e){ copyText(data); } }
+
+/* ---------- THEME ---------- */
+(function(){
+  var root=document.documentElement,b=document.getElementById("themeBtn");
+  function set(t){ root.setAttribute("data-theme",t); b.textContent=(t==="dark")?"Light":"Dark";
+    try{ localStorage.setItem("dd-intake-theme",t); }catch(e){} }
+  try{ var s=localStorage.getItem("dd-intake-theme"); if(s==="dark"||s==="light") set(s);
+    else b.textContent=(root.getAttribute("data-theme")==="dark")?"Light":"Dark"; }catch(e){}
+  b.addEventListener("click",function(){ set(root.getAttribute("data-theme")==="dark"?"light":"dark"); });
+})();
+
+boot();
+</script>
+<div id="ddGate" role="dialog" aria-modal="true" aria-label="DanDDee access gate">
+  <div class="ddg-box">
+    <div class="ddg-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="DanDDee"><title>DanDDee</title><line x1="95.00" y1="80.00" x2="130.00" y2="80.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(130.00 80.00) rotate(90.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="92.99" y1="87.50" x2="123.30" y2="105.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(123.30 105.00) rotate(120.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="87.50" y1="92.99" x2="105.00" y2="123.30" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(105.00 123.30) rotate(150.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="80.00" y1="95.00" x2="80.00" y2="130.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(80.00 130.00) rotate(180.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="72.50" y1="92.99" x2="55.00" y2="123.30" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(55.00 123.30) rotate(210.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="67.01" y1="87.50" x2="36.70" y2="105.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(36.70 105.00) rotate(240.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="65.00" y1="80.00" x2="30.00" y2="80.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(30.00 80.00) rotate(270.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="67.01" y1="72.50" x2="36.70" y2="55.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(36.70 55.00) rotate(300.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="72.50" y1="67.01" x2="55.00" y2="36.70" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(55.00 36.70) rotate(330.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><line x1="80.00" y1="65.00" x2="80.00" y2="30.00" stroke="#C9A648" stroke-width="7" stroke-linecap="round"/><g transform="translate(80.00 30.00) rotate(360.00) scale(0.85)"><path d="M0 0 c -7.6 -8.6 -11.2 -13.6 -11.2 -19.4 a11.2 11.2 0 0 1 22.4 0 c 0 5.8 -3.6 10.8 -11.2 19.4 z" fill="#ffffff"/><circle cx="0" cy="-20" r="4.2" fill="#1F3864" opacity="0.92"/></g><circle cx="80.00" cy="80.00" r="13" fill="#C9A648"/></svg></div>
+    <p class="ddg-wm">DanDDee</p>
+    <div class="ddg-tl">One head. A hundred landings.</div>
+    <div class="ddg-rule"></div>
+    <p class="ddg-tool">You are entering <b>Commercial Sales Intake</b></p>
+    <div class="ddg-card">
+      <label class="ddg-lab" for="ddGateCode">Access code</label>
+      <input type="password" id="ddGateCode" inputmode="text" autocomplete="off"
+             autocapitalize="none" spellcheck="false" placeholder="Enter your code">
+      <button id="ddGateBtn" type="button">Unlock</button>
+      <div class="ddg-msg" id="ddGateMsg" role="status" aria-live="polite"></div>
+      <div class="ddg-roles"><span class="ddg-role">Dealer</span><span class="ddg-role">Rep</span><span class="ddg-role">Manager</span></div>
+    </div>
+    <div class="ddg-foot">
+      Codes are issued by <b>National Field Operations</b> and are not shared between people or roles.
+      Lost or leaked code? Report it the same day &mdash; it is cheaper than the alternative.
+      <br><br>This gate controls entry, not permissions. It is not a substitute for your device lock
+      or for the sharing settings on this tool.
+    </div>
+  </div>
+</div>
+<script>
+
+(function(){
+  var SALT="DDGATE:intake:v1";
+  var ROLES=[{"r": "Dealer", "h": "8e0277b558457be23bd1e79496a0fa53c00be351eae135bdff9d9e72db5447ae"}, {"r": "Rep", "h": "201e2e57df5a2f68d27d804fb767d47e30e62a4e52a6c936fa143c3512c0d41b"}, {"r": "Manager", "h": "3de06a9c7baa7d0ea9605c13b010ab8338bd39fcc6d51305b957fa70bba202cc"}];
+  var KEY="dd.gate."+SALT;
+  var HOURS=12;
+  var MAXTRY=5;
+  
+function ddSha256(ascii){
+  function rr(v,a){return (v>>>a)|(v<<(32-a));}
+  var mm=Math.pow,mx=mm(2,32),i,j,r=[],hs=[],k=[],p=2,W=8*8,res="";
+  var w=[],u=unescape(encodeURIComponent(ascii)),l=u.length*8,b=[];
+  for(i=0;i<u.length;i++){b[i>>2]|=u.charCodeAt(i)<<((3-i%4)*8);}
+  b[l>>5]|=0x80<<(24-l%32); b[((l+64>>9)<<4)+15]=l;
+  var H=[1779033703,3144134277,1013904242,2773480762,1359893119,2600822924,528734635,1541459225];
+  var K=[1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,
+  3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,
+  4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,
+  2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,
+  1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,
+  3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,
+  1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,
+  3204031479,3329325298];
+  for(i=0;i<b.length;i+=16){
+    var a=H[0],bb=H[1],c=H[2],d=H[3],e=H[4],f=H[5],g=H[6],h=H[7],t1,t2;
+    for(j=0;j<64;j++){
+      if(j<16){w[j]=b[i+j]|0;}
+      else{
+        var g0=w[j-15],g1=w[j-2];
+        var s0=(rr(g0,7)^rr(g0,18)^(g0>>>3));
+        var s1=(rr(g1,17)^rr(g1,19)^(g1>>>10));
+        w[j]=(w[j-16]+s0+w[j-7]+s1)|0;
+      }
+      var S1=(rr(e,6)^rr(e,11)^rr(e,25));
+      var ch=((e&f)^((~e)&g));
+      t1=(h+S1+ch+K[j]+w[j])|0;
+      var S0=(rr(a,2)^rr(a,13)^rr(a,22));
+      var mj=((a&bb)^(a&c)^(bb&c));
+      t2=(S0+mj)|0;
+      h=g;g=f;f=e;e=(d+t1)|0;d=c;c=bb;bb=a;a=(t1+t2)|0;
+    }
+    H[0]=(H[0]+a)|0;H[1]=(H[1]+bb)|0;H[2]=(H[2]+c)|0;H[3]=(H[3]+d)|0;
+    H[4]=(H[4]+e)|0;H[5]=(H[5]+f)|0;H[6]=(H[6]+g)|0;H[7]=(H[7]+h)|0;
+  }
+  for(i=0;i<8;i++){ var v=H[i]>>>0; res+=("00000000"+v.toString(16)).slice(-8); }
+  return res;
+}
+
+  function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  function lsDel(k){try{localStorage.removeItem(k);}catch(e){}}
+
+  var gate=document.getElementById("ddGate");
+  var inp=document.getElementById("ddGateCode");
+  var btn=document.getElementById("ddGateBtn");
+  var msg=document.getElementById("ddGateMsg");
+  var tries=0, cooling=false;
+
+  function open(role){
+    window.DD_GATE_ROLE=role||"";
+    if(gate) gate.classList.add("hidden");
+    document.documentElement.style.overflow="";
+    try{ document.dispatchEvent(new CustomEvent("ddgate:open",{detail:{role:role}})); }catch(e){}
+  }
+  function stored(){
+    var raw=lsGet(KEY); if(!raw) return null;
+    try{
+      var o=JSON.parse(raw);
+      if(!o||!o.t) return null;
+      if(Date.now()-o.t > HOURS*3600*1000){ lsDel(KEY); return null; }
+      return o;
+    }catch(e){ return null; }
+  }
+  var s=stored();
+  if(s){ open(s.role); }
+  else { document.documentElement.style.overflow="hidden"; if(inp) setTimeout(function(){ try{inp.focus();}catch(e){} },120); }
+
+  function cooldown(secs){
+    cooling=true; btn.disabled=true;
+    var left=secs;
+    msg.className="ddg-msg";
+    var iv=setInterval(function(){
+      msg.textContent="Too many attempts. Try again in "+left+"s.";
+      left--;
+      if(left<0){ clearInterval(iv); cooling=false; btn.disabled=false; tries=0;
+        msg.textContent=""; }
+    },1000);
+    msg.textContent="Too many attempts. Try again in "+left+"s.";
+  }
+
+  function submit(){
+    if(cooling) return;
+    var code=(inp.value||"").trim().toLowerCase();
+    if(!code){ msg.className="ddg-msg"; msg.textContent="Enter your code."; return; }
+    var h=ddSha256(SALT+":"+code);
+    var role=null;
+    for(var i=0;i<ROLES.length;i++){ if(ROLES[i].h===h){ role=ROLES[i].r; break; } }
+    if(role){
+      msg.className="ddg-msg ok"; msg.textContent="Welcome in.";
+      lsSet(KEY,JSON.stringify({t:Date.now(),role:role}));
+      inp.value="";
+      setTimeout(function(){ open(role); },350);
+      return;
+    }
+    tries++;
+    inp.value="";
+    if(tries>=MAXTRY){ cooldown(60); return; }
+    msg.className="ddg-msg";
+    msg.textContent="That code is not recognised. "+(MAXTRY-tries)+" attempt"+((MAXTRY-tries)===1?"":"s")+" left.";
+  }
+  if(btn) btn.addEventListener("click",submit);
+  if(inp) inp.addEventListener("keydown",function(e){ if(e.key==="Enter") submit(); });
+})();
+
+</script>
+</body>
+</html>
